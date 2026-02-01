@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Xalqaro Innovatsion Universitet{% endblock %}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/fav.svg' %}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/css/rt_icon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/metismenu.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <!-- Header -->
+    {% include 'components/header.html' %}
+    
+    <!-- Main Content -->
+    {% block content %}{% endblock %}
+    
+    <!-- Footer -->
+    {% include 'components/footer.html' %}
+    
+    <!-- Off Canvas Menu -->
+    {% include 'components/offcanvas.html' %}
+    
+    <!-- Search Area -->
+    <div class="search-input-area">
+        <div class="container">
+            <div class="search-input-inner">
+                <div class="input-div">
+                    <input class="search-input autocomplete ui-autocomplete-input" type="text" placeholder="Qidiruv" autocomplete="off">
+                    <button><i class="far fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="close" class="search-close-icon"><i class="far fa-times"></i></div>
+    </div>
+    
+    <!-- Back to Top -->
+    <div class="progress-wrap">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
+        </svg>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/vendor/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery-ui.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/waw.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/metismenu.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/magnifying-popup.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/swiper.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/counterup.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/waypoint.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jarallax.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/isotop.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/sticky-sidebar.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/resize-sensor.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/twinmax.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/contact.form.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

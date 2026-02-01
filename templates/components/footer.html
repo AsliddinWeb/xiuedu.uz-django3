@@ -1,0 +1,106 @@
+{% load static %}
+<footer class="rts-footer rts-footer-padding v_2">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="rts-footer-newsletter">
+                <div class="col-lg-10">
+                    <div class="rts-newsletter-box-content">
+                        <h4 class="newsletter-title">Yangiliklar uchun obuna bo'ling</h4>
+                        <div class="newsletter-form w-530">
+                            <form action="#" method="post">
+                                <input type="email" name="email" id="email" placeholder="Email manzilingizni kiriting" required>
+                                <button type="submit" class="rts-nbg-btn btn-arrow">Obuna bo'lish 
+                                    <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row gy-5 gy-lg-0">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="rts-footer-widget w-320">
+                    <a href="{% url 'home:home' %}" class="d-block rts-footer-logo mb--40">
+                        <img src="{% static 'assets/images/logo/logo__white.svg' %}" alt="XIU">
+                    </a>
+                    <p>
+                        Xalqaro Innovatsion Universitet - zamonaviy ta'lim va ilm-fan markazi. 
+                        Biz sifatli ta'lim va professional kadrlar tayyorlashga intilamiz.
+                    </p>
+                    <div class="rts-contact-link">
+                        <a href="mailto:info@xiu.uz"><i class="fa-sharp fa-light fa-location-dot"></i> Toshkent, O'zbekiston</a>
+                        <a href="tel:+998712345678"><i class="fa-thin fa-phone"></i> +998 (71) 234-56-78</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-6">
+                <div class="rts-footer-widget">
+                    <h6 class="rt-semi">Universitet</h6>
+                    <div class="rts-footer-menu">
+                        <ul>
+                            <li><a href="#">Universitet haqida</a></li>
+                            <li><a href="#">Fakultetlar</a></li>
+                            <li><a href="#">Tuzilma</a></li>
+                            <li><a href="#">Rektorat</a></li>
+                            <li><a href="#">Tariximiz</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-4">
+                <div class="rts-footer-widget ml--30">
+                    <h6 class="rt-semi">Qabul</h6>
+                    <div class="rts-footer-menu">
+                        <ul>
+                            <li><a href="#">Bakalavriat</a></li>
+                            <li><a href="#">Magistratura</a></li>
+                            <li><a href="#">Yo'nalishlar</a></li>
+                            <li><a href="#">Hujjatlar</a></li>
+                            <li><a href="#">Kontraktlar</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-8">
+                <div class="rts-footer-widget ml--30">
+                    <h6 class="rt-semi">So'nggi yangiliklar</h6>
+                    <div class="rts-post-widget">
+                        <ul class="list-unstyled">
+                            <li class="single-post">
+                                <a href="#" class="blog-thumb">
+                                    <img src="{% static 'assets/images/blog/w-1.jpg' %}" alt="yangilik">
+                                </a>
+                                <div class="post-content">
+                                    <span class="rt-date">{{ "now"|date:"d F, Y" }}</span>
+                                    <a href="#">Yangilik sarlavhasi</a>
+                                </div>
+                            </li>
+                            <li class="single-post">
+                                <a href="#" class="blog-thumb">
+                                    <img src="{% static 'assets/images/blog/small-thumb-1.jpg' %}" alt="yangilik">
+                                </a>
+                                <div class="post-content">
+                                    <span class="rt-date">{{ "now"|date:"d F, Y" }}</span>
+                                    <a href="#">Yangilik sarlavhasi</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div class="rts-footer-copy-right v_1">
+    <div class="container">
+        <div class="row">
+            <div class="rt-center">
+                <p class="--p-xs">Copyright &copy; <span id="year">{{ "now"|date:"Y" }}</span> Barcha huquqlar himoyalangan 
+                    <a href="{% url 'home:home' %}">Xalqaro Innovatsion Universitet</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

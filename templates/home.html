@@ -1,0 +1,1140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Bosh sahifa - Xalqaro Innovatsion Universitet{% endblock %}
+
+{% block content %}
+
+<!-- 1. Banner -->
+<div class="banner v__2">
+    <div class="banner__wrapper">
+        <div class="swiper swiper-data" data-swiper='{
+            "slidesPerView":1,
+            "effect": "fade",
+            "loop": true,
+            "speed": 1000,
+            "autoplay":{"delay":"7000"}
+        }'>
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="banner__wrapper--bg" style="background-image: url({% static 'assets/images/banner/01.jpg' %});">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="banner__slides--container banner__height">
+                                        <div class="banner__slides--content">
+                                            <div class="banner__slides--content--sub">
+                                                <img src="{% static 'assets/images/icon/e-cap.svg' %}" alt="cap"> 
+                                                Bilim va innovatsiya uyg'unligi
+                                            </div>
+                                            <h1 class="banner__slides--content--title">
+                                                Salohiyatni ochish
+                                                Mukammallikni rivojlantirish
+                                            </h1>
+                                            <a href="#" class="rts-theme-btn btn-arrow">Dasturlarimiz
+                                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="banner__wrapper--bg" style="background-image: url({% static 'assets/images/banner/02.jpg' %});">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="banner__slides--container banner__height">
+                                        <div class="banner__slides--content">
+                                            <div class="banner__slides--content--sub">
+                                                <img src="{% static 'assets/images/icon/e-cap.svg' %}" alt="cap"> 
+                                                Bilim va innovatsiya uyg'unligi
+                                            </div>
+                                            <h1 class="banner__slides--content--title">
+                                                Kelajakni bugun yarating
+                                                Dunyo miqyosidagi ta'lim
+                                            </h1>
+                                            <a href="#" class="rts-theme-btn btn-arrow">Batafsil
+                                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="banner__slides--navigation">
+            <div class="banner__slides--navigation--single">
+                <h5 class="nav__title">Bakalavriat</h5>
+                <a href="#" class="nav__description">Bakalavriat yo'nalishlarini ko'rish</a>
+            </div>
+            <div class="banner__slides--navigation--single">
+                <h5 class="nav__title">Magistratura</h5>
+                <a href="#" class="nav__description">Magistratura yo'nalishlarini ko'rish</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 2. Universitet haqida -->
+<section class="about v__2 pt--120 pb--80">
+    <div class="container">
+        <div class="row justify-content-md-center g-5">
+            <div class="col-lg-6 col-md-9">
+                <div class="about__left--content">
+                    <div class="about__left--content--left">
+                        <img src="{% static 'assets/images/about/about__h2-1.png' %}" alt="">
+                    </div>
+                    <div class="about__left--content--center">
+                        <div class="rts__circle v__1">
+                            <svg class="spinner" viewBox="0 0 100 100">
+                                <defs>
+                                    <path id="circle" d="M50,50 m-37,0a37,37 0 1,1 74,0a37,37 0 1,1 -74,0"></path>
+                                </defs>
+                                <text>
+                                    <textPath xlink:href="#circle">Xalqaro Innovatsion Universitet * 2024 * Kelajakni kashf eting *</textPath>
+                                </text>
+                            </svg>
+                            <div class="rts__circle--icon">
+                                <i class="fa-light fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about__left--content--right">
+                        <img src="{% static 'assets/images/about/about__h2-2.png' %}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-9">
+                <div class="about__right--content">
+                    <div class="about__right--content--sub">
+                        <img src="{% static 'assets/images/icon/e-cap-pix.svg' %}" alt="cap">
+                        Bilim va innovatsiya uyg'unligi
+                    </div>
+                    <h2 class="about__right--content--title">Universitet haqida</h2>
+                    <p class="about__right--content--description">Xalqaro Innovatsion Universitetda biz ta'limning o'zgartiruvchi kuchi va har bir shaxsda mavjud bo'lgan cheksiz salohiyatga ishonamiz.</p>
+                    <p class="about__right--content--description">Bizning missiyamiz - intellektual qiziqishni rivojlantirish, shaxslarni to'liq salohiyatlarini amalga oshirishga qodir qilish va jamiyatni yaxshilashga mazmunli hissa qo'shish.</p>
+                    <div class="about__right--content--vision">
+                        <div class="mision">
+                            <div class="mision__icon">
+                                <img src="{% static 'assets/images/icon/mission.svg' %}" alt="">
+                            </div>
+                            <div class="mision__title">Universitet Missiyasi</div>
+                        </div>
+                        <div class="vision">
+                            <div class="vision__icon">
+                                <img src="{% static 'assets/images/icon/vission.svg' %}" alt="">
+                            </div>
+                            <div class="vision__title">Universitet Viziyasi</div>
+                        </div>
+                    </div>
+                    <a href="#" class="rts-theme-btn btn-arrow">Dasturlarimizni ko'rish
+                        <span><i class="fa-regular fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3. Statistika -->
+<div class="rts-funfact v__2">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="rts-funfact-wrapper">
+                    <div class="single-cta-item">
+                        <h2 class="single-cta-item__title">90%</h2>
+                        <p>bitiruvchilarning ish bilan ta'minlanishi</p>
+                    </div>
+                    <div class="single-cta-item">
+                        <h2 class="single-cta-item__title">Top 10</h2>
+                        <p>Kelajak yaratuvchi universitetlar</p>
+                    </div>
+                    <div class="single-cta-item">
+                        <h2 class="single-cta-item__title">№1</h2>
+                        <p>O'zbekistonda innovatsion tadqiqotlar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 4. Yangiliklar -->
+<section class="blog pt--120">
+    <div class="container">
+        <div class="row">
+            <div class="rts__section--wrapper v__8">
+                <div class="rts__section--wrapper--left">
+                    <h2 class="rts__section--title mb--15">So'nggi yangiliklar</h2>
+                    <p class="rts__section--description">Eng muhim ma'lumotlar bilan tanishing</p>
+                </div>
+                <div class="rts__section--link">
+                    <a href="#" class="rts-nbg-btn btn-arrow">Barchasini ko'rish
+                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row g-5">
+            <div class="col-lg-6 col-md-6">
+                <div class="blog__single--item">
+                    <a href="#" class="blog__single--item--link">
+                        <div class="blog__single--item--thumb">
+                            <img src="{% static 'assets/images/blog/blog__1.jpg' %}" alt="">
+                        </div>
+                    </a>
+                    <div class="blog__single--item--meta">
+                        <a href="#" class="blog__cat">Universitet</a>
+                        <h5 class="blog__single--item--title">
+                            <a href="#">Yangi o'quv yili boshlandi</a>
+                        </h5>
+                        <p class="blog__single--item--excerpt">Universitda yangi ta'lim yili tantanali ravishda ochildi</p>
+                        <div class="blog__single--item--info">
+                            <div class="author">
+                                <span><i class="fa-thin fa-user"></i></span>
+                                <a href="#">Matbuot xizmati</a>
+                            </div>
+                            <div class="date">
+                                <span><i class="fa-sharp fa-thin fa-calendar"></i></span>
+                                <p>{{ "now"|date:"d M, Y" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="blog__single--item">
+                    <a href="#" class="blog__single--item--link">
+                        <div class="blog__single--item--thumb">
+                            <img src="{% static 'assets/images/blog/blog__2.jpg' %}" alt="">
+                        </div>
+                    </a>
+                    <div class="blog__single--item--meta">
+                        <a href="#" class="blog__cat">Ta'lim</a>
+                        <h5 class="blog__single--item--title">
+                            <a href="#">Xalqaro granti e'lon qilindi</a>
+                        </h5>
+                        <p class="blog__single--item--excerpt">Talabalar uchun yangi imkoniyatlar ochildi</p>
+                        <div class="blog__single--item--info">
+                            <div class="author">
+                                <span><i class="fa-thin fa-user"></i></span>
+                                <a href="#">Matbuot xizmati</a>
+                            </div>
+                            <div class="date">
+                                <span><i class="fa-sharp fa-thin fa-calendar"></i></span>
+                                <p>{{ "now"|date:"d M, Y" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 5. Hamkorlar -->
+<div class="rts-brand v_1 pb--85 pt--85">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-12 col-md-11">
+                <div class="rts-brand-slider swiper swiper-data" data-swiper='{
+                    "slidesPerView":6,
+                    "loop": true,
+                    "autoplay":{"delay":"3000"},
+                    "breakpoints":{
+                        "320":{"slidesPerView": 3, "centeredSlides": true},
+                        "575":{"slidesPerView": 4, "centeredSlides": true},
+                        "768":{"slidesPerView": 5, "centeredSlides": true},
+                        "991":{"slidesPerView": 6, "centeredSlides": true},
+                        "1201":{"slidesPerView": 6}
+                    }
+                }'>
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="single-brand-logo">
+                                <a href="#"><img src="{% static 'assets/images/brand/01.svg' %}" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single-brand-logo">
+                                <a href="#"><img src="{% static 'assets/images/brand/02.svg' %}" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single-brand-logo">
+                                <a href="#"><img src="{% static 'assets/images/brand/03.svg' %}" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single-brand-logo">
+                                <a href="#"><img src="{% static 'assets/images/brand/04.svg' %}" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single-brand-logo">
+                                <a href="#"><img src="{% static 'assets/images/brand/05.svg' %}" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single-brand-logo">
+                                <a href="#"><img src="{% static 'assets/images/brand/06.svg' %}" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 6. Universitet litsenziyasi -->
+<section class="rts__section rts__light rts-section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="rts__section--wrapper">
+                <h2 class="rts__section--title">Litsenziya va Akkreditatsiya</h2>
+                <div class="rts__section--link">
+                    <a href="#" class="rts-nbg-btn btn-arrow">Batafsil
+                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row g-5">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="rts__program--item" style="background-image: url({% static 'assets/images/program/program__1.jpg' %});">
+                    <h5 class="rts__program--item--title">Ta'lim litsenziyasi</h5>
+                    <p class="rts__program--item--description">O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi tomonidan berilgan rasmiy ta'lim litsenziyasi.</p>
+                    <a href="#" class="rts-nbg-btn btn-arrow">Ko'rish
+                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="rts__program--item" style="background-image: url({% static 'assets/images/program/program__2.jpg' %});">
+                    <h5 class="rts__program--item--title">Davlat Akkreditatsiyasi</h5>
+                    <p class="rts__program--item--description">Davlat akkreditatsiya markazining 5 yillik muddatga berilgan sifat sertifikati va akkreditatsiya guvohnomasi.</p>
+                    <a href="#" class="rts-nbg-btn btn-arrow">Ko'rish
+                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="rts__program--item" style="background-image: url({% static 'assets/images/program/program__3.jpg' %});">
+                    <h5 class="rts__program--item--title">ISO 9001:2015</h5>
+                    <p class="rts__program--item--description">Ta'lim sifati boshqaruv tizimi bo'yicha xalqaro ISO 9001:2015 standarti sertifikati va attestatsiyasi.</p>
+                    <a href="#" class="rts-nbg-btn btn-arrow">Ko'rish
+                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="rts__program--item" style="background-image: url({% static 'assets/images/program/program__4.jpg' %});">
+                    <h5 class="rts__program--item--title">Xalqaro Akkreditatsiya</h5>
+                    <p class="rts__program--item--description">Evropa ta'lim sifati ta'minlash agentligi (ENQA) va QS World University Rankings tomonidan tan olingan.</p>
+                    <a href="#" class="rts-nbg-btn btn-arrow">Ko'rish
+                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Universitet litsenziyasi end -->
+
+<!-- 7. Ta'lim dasturlari -->
+<section class="program rts-section-padding">
+    <div class="container">
+        <div class="row rt-center">
+            <div class="col-sm-12">
+                <div class="rts__section--wrapper v__5">
+                    <h2 class="rts__section--title">Ta'lim dasturlari</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-md-center g-0">
+            <div class="col-lg-4 col-md-10">
+                <div class="program__single--item">
+                    <div class="program__single--item--bg">
+                        <img src="{% static 'assets/images/program/program__bg.jpg' %}" alt="">
+                    </div>
+                    <h5 class="program__single--item--title">Bakalavriat</h5>
+                    <ul class="program__single--item--list">
+                        <li class="program__single--item--list--item">
+                            <a href="#" class="link__list">Antropologiya
+                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                            </a>
+                        </li>
+                        <li class="program__single--item--list--item">
+                            <a href="#" class="link__list">Amaliy matematika
+                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                            </a>
+                        </li>
+                        <li class="program__single--item--list--item">
+                            <a href="#" class="link__list">Biotibbiyot muhandisligi
+                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                            </a>
+                        </li>
+                        <li class="program__single--item--list--item">
+                            <a href="#" class="link__list">Astrofizika
+                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-10">
+                <div class="program__single--item v__2">
+                    <div class="program__single--item--bg">
+                        <img src="{% static 'assets/images/program/program__bg.jpg' %}" alt="">
+                    </div>
+                    <h5 class="program__single--item--title">Magistratura</h5>
+                    <ul class="program__single--item--list">
+                        <li class="program__single--item--list--item">
+                            <a href="#" class="link__list">Amaliy hisoblash
+                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                            </a>
+                        </li>
+                        <li class="program__single--item--list--item">
+                            <a href="#" class="link__list">Amaliy matematika
+                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                            </a>
+                        </li>
+                        <li class="program__single--item--list--item">
+                            <a href="#" class="link__list">Kompyuter fanlari
+                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                            </a>
+                        </li>
+                        <li class="program__single--item--list--item">
+                            <a href="#" class="link__list">Arxitektura
+                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-10">
+                <div class="program__single--item">
+                    <div class="program__single--item--bg">
+                        <img src="{% static 'assets/images/program/program__bg.jpg' %}" alt="">
+                    </div>
+                    <h5 class="program__single--item--title">Uzluksiz ta'lim</h5>
+                    <ul class="program__single--item--list">
+                        <li class="program__single--item--list--item">
+                            <a href="#" class="link__list">Shaxsiy rivojlanish
+                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                            </a>
+                        </li>
+                        <li class="program__single--item--list--item">
+                            <a href="#" class="link__list">San'at va gumanitar fanlar
+                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                            </a>
+                        </li>
+                        <li class="program__single--item--list--item">
+                            <a href="#" class="link__list">Sog'liqni saqlash
+                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                            </a>
+                        </li>
+                        <li class="program__single--item--list--item">
+                            <a href="#" class="link__list">Ijtimoiy fanlar
+                                <span><i class="fa-regular fa-arrow-right"></i></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 8. Talabalar hayoti -->
+<section class="campus rts__primary__bg-2 rts-section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="rts__section--wrapper v__6">
+                <p class="rts__section--wrapper--description">
+                    Butun dunyodan kelgan ijodkor va muvaffaqiyatli odamlarning jonli jamiyatini qurish
+                </p>
+                <h2 class="rts__section--wrapper--title">
+                    Talabalar <span>Hayoti</span>
+                </h2>
+            </div>
+        </div>
+        <div class="row g-5">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="campus__single--item">
+                    <a href="#">
+                        <div class="campus__single--item--thumb">
+                            <img src="{% static 'assets/images/campus/01.jpg' %}" alt="">
+                        </div>
+                    </a>
+                    <h5 class="campus__single--item--title">
+                        <a href="#">Talabalar hayoti <span><i class="fa-light fa-arrow-right"></i></span></a>
+                    </h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="campus__single--item">
+                    <a href="#">
+                        <div class="campus__single--item--thumb">
+                            <img src="{% static 'assets/images/campus/02.jpg' %}" alt="">
+                        </div>
+                    </a>
+                    <h5 class="campus__single--item--title">
+                        <a href="#">San'at va Madaniyat <span><i class="fa-light fa-arrow-right"></i></span></a>
+                    </h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="campus__single--item">
+                    <a href="#">
+                        <div class="campus__single--item--thumb">
+                            <img src="{% static 'assets/images/campus/03.jpg' %}" alt="">
+                        </div>
+                    </a>
+                    <h5 class="campus__single--item--title">
+                        <a href="#">Dam olish va Sport <span><i class="fa-light fa-arrow-right"></i></span></a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rts__shape">
+        <img src="{% static 'assets/images/icon/note_khata.svg' %}" class="rts__shape--1" alt="">
+        <img src="{% static 'assets/images/icon/book.svg' %}" class="rts__shape--2" alt="">
+        <img src="{% static 'assets/images/icon/compas_scale.svg' %}" class="rts__shape--3" alt="">
+    </div>
+</section>
+
+<!-- 9. Yo'nalishlar -->
+<section class="rts-faculty rts-section-padding">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-12 col-md-11 d-flex flex-wrap gap-5 justify-content-between align-items-start mb--60 border-bottom pb-5">
+                <div class="rts-section">
+                    <h3 class="rts-section-title">Ta'lim yo'nalishlari</h3>
+                </div>
+                <div class="search-filter">
+                    <form action="#" class="cat-search-form">
+                        <input type="text" placeholder="Qidirish..." name="s" id="cat">
+                        <button type="submit" class="cat-search"><i class="fa-light fa-magnifying-glass"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row g-5">
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/01.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Axborot texnologiyalari</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/02.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Dasturiy injiniring</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/03.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Moliya va iqtisodiyot</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/04.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Menejment</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/05.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Muhandislik texnologiyalari</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/06.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Xorijiy tillar</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/07.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Biologiya va ekologiya</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/08.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Tibbiyot va farmatsevtika</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/09.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Pedagogika</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/10.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Geografiya va ekologiya</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/11.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Matematika va informatika</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/12.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Kimyo va kimyoviy texnologiya</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/13.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Psixologiya va konsalting</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/14.jpg' %}" alt="yo'nalish">
+                        <a href="#" class="cat-link-btn">Onlayn ta'lim</a>
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Turizm va mehmondo'stlik</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/15.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Arxitektura va qurilish</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-cat-item">
+                    <div class="cat-thumb">
+                        <img src="{% static 'assets/images/course/01.jpg' %}" alt="yo'nalish">
+                    </div>
+                    <div class="cat-meta">
+                        <div class="cat-title">
+                            <a href="#">Jurnalistika va ommaviy axborot</a>
+                        </div>
+                        <div class="cat-link">
+                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rts-load-more-btn rt-center mt--60">
+            <a href="#" class="rts-theme-btn primary lh-100">Ko'proq yuklash</a>
+        </div>
+    </div>
+</section>
+<!-- Yo'nalishlar end -->
+
+<!-- 10. Tadbirlar -->
+<section class="rts-notice rts-section-padding rts__light">
+    <div class="container">
+        <div class="row">
+            <div class="rts__section--wrapper v__8">
+                <h2 class="rts__section--title">Yaqinlashib kelayotgan tadbirlar</h2>
+                <div class="rts__section--link">
+                    <a href="#" class="rts-nbg-btn btn-arrow">Barchasini ko'rish
+                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row g-0 justify-content-md-center">
+            <div class="col-md-11 col-lg-7">
+                <div class="rts-event-section">
+                    <div class="rts-event-section-content">
+                        <ul class="list-unstyled rts-counter">
+                            <li class="single-event">
+                                <div class="single-event-counter">
+                                    <div class="count-number rt-clip-text"></div>
+                                </div>
+                                <div class="single-event-content">
+                                    <h5 class="event-title">Xilma-xillik, Tenglik va Inklyuziya</h5>
+                                    <div class="single-event-content-meta">
+                                        <div class="event-date">
+                                            <span><i class="fal fa-calendar"></i></span>
+                                            <span>28 Noyabr, 2024</span>
+                                        </div>
+                                        <div class="event-time">
+                                            <span><i class="fa-sharp fa-thin fa-clock"></i></span>
+                                            <span>10:30</span>
+                                        </div>
+                                        <div class="event-place">
+                                            <span><i class="fa-sharp fa-thin fa-location-dot"></i></span>
+                                            <span>Toshkent, O'zbekiston</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="single-event">
+                                <div class="single-event-counter">
+                                    <div class="count-number rt-clip-text"></div>
+                                </div>
+                                <div class="single-event-content">
+                                    <h5 class="event-title">Moliyaviy savodxonlik seminar</h5>
+                                    <div class="single-event-content-meta">
+                                        <div class="event-date">
+                                            <span><i class="fal fa-calendar"></i></span>
+                                            <span>05 Dekabr, 2024</span>
+                                        </div>
+                                        <div class="event-time">
+                                            <span><i class="fa-sharp fa-thin fa-clock"></i></span>
+                                            <span>14:00</span>
+                                        </div>
+                                        <div class="event-place">
+                                            <span><i class="fa-sharp fa-thin fa-location-dot"></i></span>
+                                            <span>Toshkent, O'zbekiston</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="single-event">
+                                <div class="single-event-counter">
+                                    <div class="count-number rt-clip-text"></div>
+                                </div>
+                                <div class="single-event-content">
+                                    <h5 class="event-title">Karyera rivojlantirish konferensiyasi</h5>
+                                    <div class="single-event-content-meta">
+                                        <div class="event-date">
+                                            <span><i class="fal fa-calendar"></i></span>
+                                            <span>12 Dekabr, 2024</span>
+                                        </div>
+                                        <div class="event-time">
+                                            <span><i class="fa-sharp fa-thin fa-clock"></i></span>
+                                            <span>09:00</span>
+                                        </div>
+                                        <div class="event-place">
+                                            <span><i class="fa-sharp fa-thin fa-location-dot"></i></span>
+                                            <span>Toshkent, O'zbekiston</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-11 col-lg-5">
+                <div class="event__background">
+                    <img src="{% static 'assets/images/event/event__bg.jpg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 11. Rektorat va Rahbariyat -->
+<section class="rts__section rts-section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="rts__section--wrapper">
+                <h2 class="rts__section--title">Universitet Rahbariyati</h2>
+                <div class="rts__section--link">
+                    <a href="#" class="rts-nbg-btn btn-arrow">Batafsil
+                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Rahbariyat a'zolari -->
+        <div class="row g-5">
+            <!-- Rektor -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="rts__single--member">
+                    <div class="rts__single--member--thumb">
+                        <a href="#">
+                            <img src="{% static 'assets/images/speaker/teacher__1.jpg' %}" alt="Rektor">
+                        </a>
+                    </div>
+                    <div class="rts__single--member--meta">
+                        <h5 class="rts__single--member--meta--title">
+                            <a href="#">Prof. Aziz Alimov</a>
+                        </h5>
+                        <span class="rts__single--member--meta--designation">
+                            Rektor
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Rektor o'rinbosari -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="rts__single--member">
+                    <div class="rts__single--member--thumb">
+                        <a href="#">
+                            <img src="{% static 'assets/images/speaker/teacher__2.jpg' %}" alt="Rektor o'rinbosari">
+                        </a>
+                    </div>
+                    <div class="rts__single--member--meta">
+                        <h5 class="rts__single--member--meta--title">
+                            <a href="#">Prof. Nodira Rahimova</a>
+                        </h5>
+                        <span class="rts__single--member--meta--designation">
+                            Rektor o'rinbosari (Ta'lim ishlari bo'yicha)
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Rektor o'rinbosari -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="rts__single--member">
+                    <div class="rts__single--member--thumb">
+                        <a href="#">
+                            <img src="{% static 'assets/images/speaker/teacher__3.jpg' %}" alt="Rektor o'rinbosari">
+                        </a>
+                    </div>
+                    <div class="rts__single--member--meta">
+                        <h5 class="rts__single--member--meta--title">
+                            <a href="#">Prof. Bobur Karimov</a>
+                        </h5>
+                        <span class="rts__single--member--meta--designation">
+                            Rektor o'rinbosari (Ilmiy ish va innovatsiyalar bo'yicha)
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Rektor o'rinbosari -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="rts__single--member">
+                    <div class="rts__single--member--thumb">
+                        <a href="#">
+                            <img src="{% static 'assets/images/speaker/teacher__4.jpg' %}" alt="Rektor o'rinbosari">
+                        </a>
+                    </div>
+                    <div class="rts__single--member--meta">
+                        <h5 class="rts__single--member--meta--title">
+                            <a href="#">Dotsent Shohruh Tursunov</a>
+                        </h5>
+                        <span class="rts__single--member--meta--designation">
+                            Rektor o'rinbosari (Moliya va ma'muriy ishlar bo'yicha)
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Rahbariyat a'zolari end -->
+    </div>
+</section>
+<!-- Rektorat va Rahbariyat end -->
+
+<!-- 12. Qabul -->
+<div class="rts-newsletter v_1 rts-cta-background rts__white">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="rts-newsletter-box" style="background-image: url({% static 'assets/images/newsletter/bg-1.jpg' %});">
+                    <div class="rts-newsletter-box-content">
+                        <h4 class="newsletter-title">2024-2025 o'quv yili uchun qabul boshlandi
+                        </h4>
+                        <p class="newsletter-description" style="color: #fff; margin-bottom: 20px;">
+                            Xalqaro Innovatsion Universitetida o'qishni xohlaysizmi? Hoziroq ariza topshiring!
+                        </p>
+                        <div class="newsletter-form w-530">
+                            <a href="#" class="rts-theme-btn btn-arrow" style="display: inline-block;">
+                                Ariza topshirish 
+                                <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                            </a>
+                            <a href="#" class="rts-nbg-btn btn-arrow" style="display: inline-block; margin-left: 15px;">
+                                Batafsil ma'lumot
+                                <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Qabul end -->
+
+ <!-- 13. Grantlar -->
+<section class="rts-scholarship rts-scholarship-bg rts-section-height">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="rts-scholarship-info">
+                    <h2 class="rts-section-title">Grantlar va Moliyaviy yordam</h2>
+                    <p class="w-740 mb--50">Har semestr universitetimiz akademik jihatdan iqtidorli talabalarni turli grantlar bilan taqdirlaydi. Yiliga 100 milliondan ortiq so'm miqdorida grant ajratiladi.</p>
+                    <a href="#" class="rts-theme-btn btn-arrow">Batafsil<span><i class="fa-thin fa-arrow-right"></i></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 14. Fotogalereya -->
+<div class="rts-campus-section rts-section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="rts-section rt-center mb--45">
+                <h3 class="rts-section-title">Fotogalereya</h3>
+                <p class="rts-section-description">Universitet hayotidan lavhalar</p>
+            </div>
+        </div>
+        <div class="row g-5">
+            <!-- single item -->
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="single-item">
+                    <div class="single-item__content">
+                        <div class="single-item__image">
+                            <img src="{% static 'assets/images/campus/01.jpg' %}" alt="O'quv jarayoni">
+                        </div>
+                        <div class="single-item__meta">
+                            <h5 class="item-title"><a href="#">O'quv jarayoni</a></h5>
+                            <p class="item-description">Zamonaviy auditoriyalar va laboratoriyalarda o'quv jarayoni. Talabalar professional professor-o'qituvchilar bilan birgalikda bilim olmoqdalar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item end -->
+            <!-- single item -->
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="single-item">
+                    <div class="single-item__content">
+                        <div class="single-item__image">
+                            <img src="{% static 'assets/images/campus/02.jpg' %}" alt="Talabalar turar joyi">
+                        </div>
+                        <div class="single-item__meta">
+                            <h5 class="item-title"><a href="#">Talabalar turar joyi</a></h5>
+                            <p class="item-description">Zamonaviy va qulay talabalar turar joylari. Barcha qulayliklar bilan ta'minlangan xonalar va dam olish zonalari mavjud.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item end -->
+            <!-- single item -->
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="single-item">
+                    <div class="single-item__content">
+                        <div class="single-item__image">
+                            <img src="{% static 'assets/images/campus/03.jpg' %}" alt="Madaniy tadbirlar">
+                        </div>
+                        <div class="single-item__meta">
+                            <h5 class="item-title"><a href="#">Madaniy tadbirlar</a></h5>
+                            <p class="item-description">Universitet talabalarining boy madaniy hayoti. Turli milliy bayramlar, festivallar va ijodiy tadbirlar muntazam tashkil etiladi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item end -->
+            <!-- single item -->
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="single-item">
+                    <div class="single-item__content">
+                        <div class="single-item__image">
+                            <img src="{% static 'assets/images/campus/01.jpg' %}" alt="Sport tadbirlari">
+                        </div>
+                        <div class="single-item__meta">
+                            <h5 class="item-title"><a href="#">Sport tadbirlari</a></h5>
+                            <p class="item-description">Universitetda turli sport turlari bo'yicha musobaqalar va mashg'ulotlar. Talabalar sog'lom turmush tarzini targ'ib qilishadi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item end -->
+            <!-- single item -->
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="single-item">
+                    <div class="single-item__content">
+                        <div class="single-item__image">
+                            <img src="{% static 'assets/images/campus/02.jpg' %}" alt="Ilmiy konferensiyalar">
+                        </div>
+                        <div class="single-item__meta">
+                            <h5 class="item-title"><a href="#">Ilmiy konferensiyalar</a></h5>
+                            <p class="item-description">Xalqaro va mahalliy ilmiy konferensiyalar muntazam ravishda o'tkaziladi. Talabalar o'z tadqiqot ishlarini taqdimot qilish imkoniyatiga ega.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item end -->
+            <!-- single item -->
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="single-item">
+                    <div class="single-item__content">
+                        <div class="single-item__image">
+                            <img src="{% static 'assets/images/campus/03.jpg' %}" alt="Bitiruvchilar kechasi">
+                        </div>
+                        <div class="single-item__meta">
+                            <h5 class="item-title"><a href="#">Bitiruvchilar kechasi</a></h5>
+                            <p class="item-description">Har yili bitiruvchilar uchun tantanali kecha tashkil etiladi. Bu - talabalarning eng unutilmas kunlaridan biri hisoblanadi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single item end -->
+        </div>
+        <div class="rts-load-more-btn rt-center mt--60">
+            <a href="#" class="rts-theme-btn primary lh-100">Barchasini ko'rish</a>
+        </div>
+    </div>
+</div>
+<!-- Fotogalereya end -->
+{% endblock %}

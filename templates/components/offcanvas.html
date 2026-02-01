@@ -1,0 +1,113 @@
+{% load static %}
+<div id="side-bar" class="side-bar">
+    <button class="close-icon-menu"><i class="far fa-times"></i></button>
+    
+    <!-- Desktop Menu -->
+    <div class="inner-main-wrapper-desk">
+        <div class="thumbnail">
+            <img src="{% static 'assets/images/logo/logo__five.svg' %}" alt="XIU">
+        </div>
+        <div class="inner-content">
+            <p class="disc">
+                Xalqaro Innovatsion Universitet - zamonaviy ta'lim va innovatsion yondashuvlar markazi.
+            </p>
+            
+            <!-- Banner -->
+            <div class="offcanvase__banner mt--50">
+                <div class="offcanvase__banner--content">
+                    <img src="{% static 'assets/images/offcanvase.jpg' %}" alt="qabul">
+                    <a href="#" class="rts-theme-btn">Ariza topshirish</a>
+                </div>
+            </div>
+            
+            <div class="offcanvase__info">
+                <div class="offcanvase__info--content">
+                    <a href="tel:+998712345678">
+                        <span><i class="fa-sharp fa-light fa-phone"></i></span>
+                        +998 (71) 234-56-78
+                    </a>
+                    <a href="#">
+                        <span><i class="fa-sharp fa-light fa-location-dot"></i></span>
+                        Toshkent, O'zbekiston
+                    </a>
+                    <div class="offcanvase__info--content--social">
+                        <p class="title">Ijtimoiy tarmoqlar:</p>
+                        <div class="social__links">
+                            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-main">
+        <nav class="nav-main mainmenu-nav mt--30">
+            <ul class="mainmenu metismenu" id="mobile-menu-active">
+                <li>
+                    <a href="{% url 'home:home' %}" class="main">Bosh sahifa</a>
+                </li>
+                <li class="has-droupdown">
+                    <a href="#" class="main">Universitet haqida</a>
+                    <ul class="submenu mm-collapse">
+                        <li><a class="mobile-menu-link" href="#">Universitet tarixi</a></li>
+                        <li><a class="mobile-menu-link" href="#">Rektorat</a></li>
+                        <li><a class="mobile-menu-link" href="#">Tuzilma</a></li>
+                        <li><a class="mobile-menu-link" href="#">Rekvizitlar</a></li>
+                    </ul>
+                </li>
+                <li class="has-droupdown">
+                    <a href="#" class="main">Fakultetlar</a>
+                    <ul class="submenu mm-collapse">
+                        <li><a class="mobile-menu-link" href="#">Fakultetlar</a></li>
+                        <li><a class="mobile-menu-link" href="#">Kafedralar</a></li>
+                        <li><a class="mobile-menu-link" href="#">Yo'nalishlar</a></li>
+                    </ul>
+                </li>
+                <li class="has-droupdown">
+                    <a href="#" class="main">Qabul</a>
+                    <ul class="submenu mm-collapse">
+                        <li><a class="mobile-menu-link" href="#">Bakalavriat</a></li>
+                        <li><a class="mobile-menu-link" href="#">Magistratura</a></li>
+                        <li><a class="mobile-menu-link" href="#">Hujjatlar</a></li>
+                    </ul>
+                </li>
+                <li class="has-droupdown">
+                    <a href="#" class="main">Yangiliklar</a>
+                    <ul class="submenu mm-collapse">
+                        <li><a class="mobile-menu-link" href="#">Yangiliklar</a></li>
+                        <li><a class="mobile-menu-link" href="#">E'lonlar</a></li>
+                        <li><a class="mobile-menu-link" href="#">Tadbirlar</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="main">Aloqa</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="offcanvase__info--content mt--30">
+            <a href="tel:+998712345678">
+                <span><i class="fa-sharp fa-light fa-phone"></i></span>
+                +998 (71) 234-56-78
+            </a>
+            <a href="#">
+                <span><i class="fa-sharp fa-light fa-location-dot"></i></span>
+                Toshkent, O'zbekiston
+            </a>
+            <div class="offcanvase__info--content--social">
+                <p class="title">Ijtimoiy tarmoqlar:</p>
+                <div class="social__links">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

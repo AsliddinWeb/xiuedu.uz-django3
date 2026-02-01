@@ -1,0 +1,84 @@
+{% load static %}
+<header class="header header__sticky v__2">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="header__wrapper">
+                    <div class="header__logo">
+                        <a href="{% url 'home:home' %}" class="header__logo--link">
+                            <img src="{% static 'assets/images/logo/logo__two.svg' %}" alt="XIU">
+                        </a>
+                    </div>
+                    <div class="header__menu">
+                        <div class="navigation">
+                            <nav class="navigation__menu">
+                                <ul>
+                                    <li class="navigation__menu--item">
+                                        <a href="{% url 'home:home' %}" class="navigation__menu--item__link">Bosh sahifa</a>
+                                    </li>
+                                    <li class="navigation__menu--item has-child has-arrow">
+                                        <a href="javascript:void(0);" class="navigation__menu--item__link">Universitet haqida</a>
+                                        <ul class="submenu sub__style">
+                                            <li><a href="#">Universitet tarixi</a></li>
+                                            <li><a href="#">Rektorat</a></li>
+                                            <li><a href="#">Tuzilma</a></li>
+                                            <li><a href="#">Rekvizitlar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="navigation__menu--item has-child has-arrow">
+                                        <a href="javascript:void(0);" class="navigation__menu--item__link">Fakultetlar</a>
+                                        <ul class="submenu sub__style">
+                                            <li><a href="#">Fakultetlar</a></li>
+                                            <li><a href="#">Kafedralar</a></li>
+                                            <li><a href="#">Yo'nalishlar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="navigation__menu--item has-child has-arrow">
+                                        <a href="javascript:void(0);" class="navigation__menu--item__link">Qabul</a>
+                                        <ul class="submenu sub__style">
+                                            <li><a href="#">Bakalavriat</a></li>
+                                            <li><a href="#">Magistratura</a></li>
+                                            <li><a href="#">Hujjatlar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="navigation__menu--item has-child has-arrow">
+                                        <a href="javascript:void(0);" class="navigation__menu--item__link">Yangiliklar</a>
+                                        <ul class="submenu sub__style">
+                                            <li><a href="#">Yangiliklar</a></li>
+                                            <li><a href="#">E'lonlar</a></li>
+                                            <li><a href="#">Tadbirlar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="navigation__menu--item">
+                                        <a href="#" class="navigation__menu--item__link">Aloqa</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="header__right">
+                        <div class="header__right--item">
+                            <div id="langSwitcher" class="lang__trigger">
+                                <span class="selected__lang">O'zbekcha</span>
+                                <i class="fa-light fa-globe"></i>
+                                <div class="translate__lang">
+                                    <ul>
+                                        <li><a href="#" class="active">O'zbekcha</a></li>
+                                        <li><a href="#">Русский</a></li>
+                                        <li><a href="#">English</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="search-btn" class="search__trigger">
+                                <i class="fa-sharp fa-light fa-magnifying-glass"></i>
+                            </div>
+                            <div id="menu-btn" class="menu__trigger">
+                                <img src="{% static 'assets/images/icon/menu__bar.svg' %}" alt="menu">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
