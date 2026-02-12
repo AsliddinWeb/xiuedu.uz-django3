@@ -25,7 +25,11 @@
             {% if header_settings and header_settings.show_header_button and header_settings.button_text %}
             <div class="offcanvase__banner mt--50">
                 <div class="offcanvase__banner--content">
-                    <img src="{% static 'assets/images/offcanvase.jpg' %}" alt="{% trans 'qabul' %}">
+                    {% if header_settings.button_image %}
+                        <img src="{{ header_settings.button_image.url }}" alt="{% trans 'qabul' %}">
+                    {% else %}
+                        <img src="{% static 'assets/images/offcanvase.jpg' %}" alt="{% trans 'qabul' %}">
+                    {% endif %}
                     <a href="{{ header_settings.button_link }}" class="rts-theme-btn">{{ header_settings.button_text }}</a>
                 </div>
             </div>
