@@ -1,113 +1,161 @@
 {% load static %}
+{% load i18n %}
 <div id="side-bar" class="side-bar">
     <button class="close-icon-menu"><i class="far fa-times"></i></button>
-    
+
     <!-- Desktop Menu -->
     <div class="inner-main-wrapper-desk">
         <div class="thumbnail">
-            <img src="{% static 'assets/images/logo/logo__five.svg' %}" alt="XIU">
+            {% if site_settings and site_settings.logo %}
+                <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}">
+            {% else %}
+                <img src="{% static 'assets/images/logo/logo__five.svg' %}" alt="XIU">
+            {% endif %}
         </div>
         <div class="inner-content">
-            <p class="disc">
-                Xalqaro Innovatsion Universitet - zamonaviy ta'lim va innovatsion yondashuvlar markazi.
-            </p>
-            
+            {% if footer_settings and footer_settings.about_text %}
+                <p class="disc">{{ footer_settings.about_text|truncatewords:25 }}</p>
+            {% elif site_settings and site_settings.site_description %}
+                <p class="disc">{{ site_settings.site_description|truncatewords:25 }}</p>
+            {% else %}
+                <p class="disc">{% trans "Xalqaro Innovatsion Universitet - zamonaviy ta'lim va innovatsion yondashuvlar markazi." %}</p>
+            {% endif %}
+
             <!-- Banner -->
+            {% if header_settings and header_settings.show_header_button and header_settings.button_text %}
             <div class="offcanvase__banner mt--50">
                 <div class="offcanvase__banner--content">
-                    <img src="{% static 'assets/images/offcanvase.jpg' %}" alt="qabul">
-                    <a href="#" class="rts-theme-btn">Ariza topshirish</a>
+                    <img src="{% static 'assets/images/offcanvase.jpg' %}" alt="{% trans 'qabul' %}">
+                    <a href="{{ header_settings.button_link }}" class="rts-theme-btn">{{ header_settings.button_text }}</a>
                 </div>
             </div>
-            
+            {% endif %}
+
+            {% if site_settings %}
             <div class="offcanvase__info">
                 <div class="offcanvase__info--content">
-                    <a href="tel:+998712345678">
-                        <span><i class="fa-sharp fa-light fa-phone"></i></span>
-                        +998 (71) 234-56-78
-                    </a>
-                    <a href="#">
-                        <span><i class="fa-sharp fa-light fa-location-dot"></i></span>
-                        Toshkent, O'zbekiston
-                    </a>
+                    {% if site_settings.phone %}
+                        <a href="tel:{{ site_settings.phone }}">
+                            <span><i class="fa-sharp fa-light fa-phone"></i></span>
+                            {{ site_settings.phone }}
+                        </a>
+                    {% endif %}
+                    {% if site_settings.address %}
+                        <a href="#">
+                            <span><i class="fa-sharp fa-light fa-location-dot"></i></span>
+                            {{ site_settings.address|truncatewords:10 }}
+                        </a>
+                    {% endif %}
+
+                    {% if social_networks %}
                     <div class="offcanvase__info--content--social">
-                        <p class="title">Ijtimoiy tarmoqlar:</p>
+                        <p class="title">{% trans "Ijtimoiy tarmoqlar:" %}</p>
                         <div class="social__links">
-                            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="#"><i class="fa-brands fa-telegram"></i></a>
-                            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                            {% for social in social_networks %}
+                                <a href="{{ social.url }}" target="_blank" rel="noopener noreferrer" title="{{ social.name }}">
+                                    <i class="{{ social.icon }}"></i>
+                                </a>
+                            {% endfor %}
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
-    
+
     <!-- Mobile Menu -->
     <div class="mobile-menu-main">
         <nav class="nav-main mainmenu-nav mt--30">
             <ul class="mainmenu metismenu" id="mobile-menu-active">
-                <li>
-                    <a href="{% url 'home:home' %}" class="main">Bosh sahifa</a>
-                </li>
-                <li class="has-droupdown">
-                    <a href="#" class="main">Universitet haqida</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="#">Universitet tarixi</a></li>
-                        <li><a class="mobile-menu-link" href="#">Rektorat</a></li>
-                        <li><a class="mobile-menu-link" href="#">Tuzilma</a></li>
-                        <li><a class="mobile-menu-link" href="#">Rekvizitlar</a></li>
-                    </ul>
-                </li>
-                <li class="has-droupdown">
-                    <a href="#" class="main">Fakultetlar</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="#">Fakultetlar</a></li>
-                        <li><a class="mobile-menu-link" href="#">Kafedralar</a></li>
-                        <li><a class="mobile-menu-link" href="#">Yo'nalishlar</a></li>
-                    </ul>
-                </li>
-                <li class="has-droupdown">
-                    <a href="#" class="main">Qabul</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="#">Bakalavriat</a></li>
-                        <li><a class="mobile-menu-link" href="#">Magistratura</a></li>
-                        <li><a class="mobile-menu-link" href="#">Hujjatlar</a></li>
-                    </ul>
-                </li>
-                <li class="has-droupdown">
-                    <a href="#" class="main">Yangiliklar</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="#">Yangiliklar</a></li>
-                        <li><a class="mobile-menu-link" href="#">E'lonlar</a></li>
-                        <li><a class="mobile-menu-link" href="#">Tadbirlar</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="main">Aloqa</a>
-                </li>
+                {% for menu in header_menus %}
+                    {% if menu.has_children %}
+                        <li class="has-droupdown">
+                            <a href="{{ menu.get_url }}" class="main">
+                                {% if menu.icon %}<i class="{{ menu.icon }}"></i> {% endif %}
+                                {{ menu.title }}
+                                {% if menu.show_badge and menu.badge_text %}
+                                    <span class="badge" style="background-color: {{ menu.badge_color }}; margin-left: 5px; padding: 2px 8px; border-radius: 10px; font-size: 10px;">
+                                        {{ menu.badge_text }}
+                                    </span>
+                                {% endif %}
+                            </a>
+                            <ul class="submenu mm-collapse">
+                                {% for child in menu.get_children %}
+                                    {% if child.has_children %}
+                                        <li class="has-droupdown">
+                                            <a class="mobile-menu-link" href="{{ child.get_url }}">
+                                                {% if child.icon %}<i class="{{ child.icon }}"></i> {% endif %}
+                                                {{ child.title }}
+                                            </a>
+                                            <ul class="submenu mm-collapse">
+                                                {% for subchild in child.get_children %}
+                                                    <li>
+                                                        <a class="mobile-menu-link" href="{{ subchild.get_url }}"{% if subchild.open_new_tab %} target="_blank"{% endif %}>
+                                                            {% if subchild.icon %}<i class="{{ subchild.icon }}"></i> {% endif %}
+                                                            {{ subchild.title }}
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <a class="mobile-menu-link" href="{{ child.get_url }}"{% if child.open_new_tab %} target="_blank"{% endif %}>
+                                                {% if child.icon %}<i class="{{ child.icon }}"></i> {% endif %}
+                                                {{ child.title }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ menu.get_url }}" class="main"{% if menu.open_new_tab %} target="_blank"{% endif %}>
+                                {% if menu.icon %}<i class="{{ menu.icon }}"></i> {% endif %}
+                                {{ menu.title }}
+                                {% if menu.show_badge and menu.badge_text %}
+                                    <span class="badge" style="background-color: {{ menu.badge_color }}; margin-left: 5px; padding: 2px 8px; border-radius: 10px; font-size: 10px;">
+                                        {{ menu.badge_text }}
+                                    </span>
+                                {% endif %}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
             </ul>
         </nav>
 
+        {% if site_settings %}
         <div class="offcanvase__info--content mt--30">
-            <a href="tel:+998712345678">
-                <span><i class="fa-sharp fa-light fa-phone"></i></span>
-                +998 (71) 234-56-78
-            </a>
-            <a href="#">
-                <span><i class="fa-sharp fa-light fa-location-dot"></i></span>
-                Toshkent, O'zbekiston
-            </a>
+            {% if site_settings.phone %}
+                <a href="tel:{{ site_settings.phone }}">
+                    <span><i class="fa-sharp fa-light fa-phone"></i></span>
+                    {{ site_settings.phone }}
+                </a>
+            {% endif %}
+            {% if site_settings.address %}
+                <a href="#">
+                    <span><i class="fa-sharp fa-light fa-location-dot"></i></span>
+                    {{ site_settings.address|truncatewords:10 }}
+                </a>
+            {% endif %}
+
+            {% if social_networks %}
             <div class="offcanvase__info--content--social">
-                <p class="title">Ijtimoiy tarmoqlar:</p>
+                <p class="title">{% trans "Ijtimoiy tarmoqlar:" %}</p>
                 <div class="social__links">
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    {% for social in social_networks %}
+                        <a href="{{ social.url }}" target="_blank" rel="noopener noreferrer" title="{{ social.name }}">
+                            <i class="{{ social.icon }}"></i>
+                        </a>
+                    {% endfor %}
                 </div>
             </div>
+            {% endif %}
         </div>
+        {% endif %}
     </div>
 </div>

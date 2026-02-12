@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}Bosh sahifa - Xalqaro Innovatsion Universitet{% endblock %}
 
@@ -8,57 +9,120 @@
 <!-- 1. Banner -->
 <div class="banner v__2">
     <div class="banner__wrapper">
-        <div class="swiper swiper-data" data-swiper='{
-            "slidesPerView":1,
-            "effect": "fade",
-            "loop": true,
-            "speed": 1000,
-            "autoplay":{"delay":"7000"}
-        }'>
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="banner__wrapper--bg" style="background-image: url({% static 'assets/images/banner/01.jpg' %});">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="banner__slides--container banner__height">
-                                        <div class="banner__slides--content">
-                                            <div class="banner__slides--content--sub">
-                                                <img src="{% static 'assets/images/icon/e-cap.svg' %}" alt="cap"> 
-                                                Bilim va innovatsiya uyg'unligi
+        {% if banner_settings and banner_settings.show_video and banner_video %}
+            {# VIDEO BANNER #}
+            <div class="banner__video--wrapper banner__wrapper--bg">
+                <video autoplay muted loop playsinline class="video-background" {% if banner_video.poster_image %}poster="{{ banner_video.poster_image.url }}"{% endif %}>
+                    <source src="{{ banner_video.video_file.url }}" type="video/mp4">
+                </video>
+                <div class="video-overlay"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="banner__slides--container banner__height">
+                                <div class="banner__slides--content">
+                                    {% if banner_video.subtitle %}
+                                    <div class="banner__slides--content--sub">
+                                        <img src="{% static 'assets/images/icon/e-cap.svg' %}" alt="cap">
+                                        {{ banner_video.subtitle }}
+                                    </div>
+                                    {% endif %}
+
+                                    {% if banner_video.title %}
+                                    <h1 class="banner__slides--content--title">
+                                        {{ banner_video.title|safe }}
+                                    </h1>
+                                    {% endif %}
+
+                                    {% if banner_video.button_text and banner_video.button_link %}
+                                    <a href="{{ banner_video.button_link }}" class="rts-theme-btn btn-arrow">
+                                        {{ banner_video.button_text }}
+                                        <span><i class="fa-regular fa-arrow-right"></i></span>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            {# SLIDER BANNER #}
+            {% if banner_sliders %}
+            <div class="swiper swiper-data" data-swiper='{
+                "slidesPerView":1,
+                "effect": "fade",
+                "loop": true,
+                "speed": 1000,
+                "autoplay":{"delay":"7000"}
+            }'>
+                <div class="swiper-wrapper">
+                    {% for slider in banner_sliders %}
+                    <div class="swiper-slide">
+                        <div class="banner__wrapper--bg" style="background-image: url({% if slider.image %}{{ slider.image.url }}{% else %}{% static 'assets/images/banner/01.jpg' %}{% endif %});">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="banner__slides--container banner__height">
+                                            <div class="banner__slides--content">
+                                                {% if slider.subtitle %}
+                                                <div class="banner__slides--content--sub">
+                                                    <img src="{% static 'assets/images/icon/e-cap.svg' %}" alt="cap">
+                                                    {{ slider.subtitle }}
+                                                </div>
+                                                {% endif %}
+
+                                                {% if slider.title %}
+                                                <h1 class="banner__slides--content--title">
+                                                    {{ slider.title|linebreaks }}
+                                                </h1>
+                                                {% endif %}
+
+                                                {% if slider.button_text and slider.button_link %}
+                                                <a href="{{ slider.button_link }}" class="rts-theme-btn btn-arrow">
+                                                    {{ slider.button_text }}
+                                                    <span><i class="fa-regular fa-arrow-right"></i></span>
+                                                </a>
+                                                {% endif %}
                                             </div>
-                                            <h1 class="banner__slides--content--title">
-                                                Salohiyatni ochish
-                                                Mukammallikni rivojlantirish
-                                            </h1>
-                                            <a href="#" class="rts-theme-btn btn-arrow">Dasturlarimiz
-                                                <span><i class="fa-regular fa-arrow-right"></i></span>
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                <div class="swiper-slide">
-                    <div class="banner__wrapper--bg" style="background-image: url({% static 'assets/images/banner/02.jpg' %});">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="banner__slides--container banner__height">
-                                        <div class="banner__slides--content">
-                                            <div class="banner__slides--content--sub">
-                                                <img src="{% static 'assets/images/icon/e-cap.svg' %}" alt="cap"> 
-                                                Bilim va innovatsiya uyg'unligi
+            </div>
+            {% else %}
+            {# DEFAULT SLIDER #}
+            <div class="swiper swiper-data" data-swiper='{
+                "slidesPerView":1,
+                "effect": "fade",
+                "loop": true,
+                "speed": 1000,
+                "autoplay":{"delay":"7000"}
+            }'>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="banner__wrapper--bg" style="background-image: url({% static 'assets/images/banner/01.jpg' %});">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="banner__slides--container banner__height">
+                                            <div class="banner__slides--content">
+                                                <div class="banner__slides--content--sub">
+                                                    <img src="{% static 'assets/images/icon/e-cap.svg' %}" alt="cap">
+                                                    Bilim va innovatsiya uyg'unligi
+                                                </div>
+                                                <h1 class="banner__slides--content--title">
+                                                    Salohiyatni ochish<br>
+                                                    Mukammallikni rivojlantirish
+                                                </h1>
+                                                <a href="#" class="rts-theme-btn btn-arrow">Dasturlarimiz
+                                                    <span><i class="fa-regular fa-arrow-right"></i></span>
+                                                </a>
                                             </div>
-                                            <h1 class="banner__slides--content--title">
-                                                Kelajakni bugun yarating
-                                                Dunyo miqyosidagi ta'lim
-                                            </h1>
-                                            <a href="#" class="rts-theme-btn btn-arrow">Batafsil
-                                                <span><i class="fa-regular fa-arrow-right"></i></span>
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -67,28 +131,35 @@
                     </div>
                 </div>
             </div>
-        </div>
+            {% endif %}
+        {% endif %}
+
+        {% if banner_navigations %}
         <div class="banner__slides--navigation">
+            {% for nav in banner_navigations %}
             <div class="banner__slides--navigation--single">
-                <h5 class="nav__title">Bakalavriat</h5>
-                <a href="#" class="nav__description">Bakalavriat yo'nalishlarini ko'rish</a>
+                <h5 class="nav__title">{{ nav.title }}</h5>
+                <a href="{{ nav.get_link }}" class="nav__description">{{ nav.description }}</a>
             </div>
-            <div class="banner__slides--navigation--single">
-                <h5 class="nav__title">Magistratura</h5>
-                <a href="#" class="nav__description">Magistratura yo'nalishlarini ko'rish</a>
-            </div>
+            {% endfor %}
         </div>
+        {% endif %}
     </div>
 </div>
 
 <!-- 2. Universitet haqida -->
+{% if about_section %}
 <section class="about v__2 pt--120 pb--80">
     <div class="container">
         <div class="row justify-content-md-center g-5">
             <div class="col-lg-6 col-md-9">
                 <div class="about__left--content">
                     <div class="about__left--content--left">
-                        <img src="{% static 'assets/images/about/about__h2-1.png' %}" alt="">
+                        {% if about_section.left_image_1 %}
+                            <img src="{{ about_section.left_image_1.url }}" alt="">
+                        {% else %}
+                            <img src="{% static 'assets/images/about/about__h2-1.png' %}" alt="">
+                        {% endif %}
                     </div>
                     <div class="about__left--content--center">
                         <div class="rts__circle v__1">
@@ -97,7 +168,7 @@
                                     <path id="circle" d="M50,50 m-37,0a37,37 0 1,1 74,0a37,37 0 1,1 -74,0"></path>
                                 </defs>
                                 <text>
-                                    <textPath xlink:href="#circle">Xalqaro Innovatsion Universitet * 2024 * Kelajakni kashf eting *</textPath>
+                                    <textPath xlink:href="#circle">{{ about_section.circle_text|default:"Xalqaro Innovatsion Universitet * 2024 * Kelajakni kashf eting *" }}</textPath>
                                 </text>
                             </svg>
                             <div class="rts__circle--icon">
@@ -106,141 +177,220 @@
                         </div>
                     </div>
                     <div class="about__left--content--right">
-                        <img src="{% static 'assets/images/about/about__h2-2.png' %}" alt="">
+                        {% if about_section.left_image_2 %}
+                            <img src="{{ about_section.left_image_2.url }}" alt="">
+                        {% else %}
+                            <img src="{% static 'assets/images/about/about__h2-2.png' %}" alt="">
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-md-9">
                 <div class="about__right--content">
+                    {% if about_section.subtitle %}
                     <div class="about__right--content--sub">
                         <img src="{% static 'assets/images/icon/e-cap-pix.svg' %}" alt="cap">
-                        Bilim va innovatsiya uyg'unligi
+                        {{ about_section.subtitle }}
                     </div>
-                    <h2 class="about__right--content--title">Universitet haqida</h2>
-                    <p class="about__right--content--description">Xalqaro Innovatsion Universitetda biz ta'limning o'zgartiruvchi kuchi va har bir shaxsda mavjud bo'lgan cheksiz salohiyatga ishonamiz.</p>
-                    <p class="about__right--content--description">Bizning missiyamiz - intellektual qiziqishni rivojlantirish, shaxslarni to'liq salohiyatlarini amalga oshirishga qodir qilish va jamiyatni yaxshilashga mazmunli hissa qo'shish.</p>
+                    {% endif %}
+
+                    {% if about_section.title %}
+                    <h2 class="about__right--content--title">{{ about_section.title }}</h2>
+                    {% endif %}
+
+                    {% if about_section.description %}
+                    <p class="about__right--content--description">{{ about_section.description }}</p>
+                    {% endif %}
+
+                    {% if about_section.description_2 %}
+                    <p class="about__right--content--description">{{ about_section.description_2 }}</p>
+                    {% endif %}
+
                     <div class="about__right--content--vision">
                         <div class="mision">
                             <div class="mision__icon">
-                                <img src="{% static 'assets/images/icon/mission.svg' %}" alt="">
+                                {% if about_section.mission_icon %}
+                                    <img src="{{ about_section.mission_icon.url }}" alt="">
+                                {% else %}
+                                    <img src="{% static 'assets/images/icon/mission.svg' %}" alt="">
+                                {% endif %}
                             </div>
-                            <div class="mision__title">Universitet Missiyasi</div>
+                            <div class="mision__title">{{ about_section.mission_title|default:"Universitet Missiyasi" }}</div>
                         </div>
                         <div class="vision">
                             <div class="vision__icon">
-                                <img src="{% static 'assets/images/icon/vission.svg' %}" alt="">
+                                {% if about_section.vision_icon %}
+                                    <img src="{{ about_section.vision_icon.url }}" alt="">
+                                {% else %}
+                                    <img src="{% static 'assets/images/icon/vission.svg' %}" alt="">
+                                {% endif %}
                             </div>
-                            <div class="vision__title">Universitet Viziyasi</div>
+                            <div class="vision__title">{{ about_section.vision_title|default:"Universitet Viziyasi" }}</div>
                         </div>
                     </div>
-                    <a href="#" class="rts-theme-btn btn-arrow">Dasturlarimizni ko'rish
+
+                    {% if about_section.button_text and about_section.button_link %}
+                    <a href="{{ about_section.button_link }}" class="rts-theme-btn btn-arrow">{{ about_section.button_text }}
                         <span><i class="fa-regular fa-arrow-right"></i></span>
                     </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </section>
+{% endif %}
 
 <!-- 3. Statistika -->
+{% if statistic_items %}
 <div class="rts-funfact v__2">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="rts-funfact-wrapper">
+                    {% for item in statistic_items %}
                     <div class="single-cta-item">
-                        <h2 class="single-cta-item__title">90%</h2>
-                        <p>bitiruvchilarning ish bilan ta'minlanishi</p>
+                        {% if item.icon %}
+                            <i class="{{ item.icon }}"></i>
+                        {% endif %}
+                        <h2 class="single-cta-item__title">{{ item.title }}</h2>
+                        <p>{{ item.description }}</p>
                     </div>
-                    <div class="single-cta-item">
-                        <h2 class="single-cta-item__title">Top 10</h2>
-                        <p>Kelajak yaratuvchi universitetlar</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- 4. Yangiliklar -->
+{% if news_static %}
+<div class="rts-blog v_1 rts-section-padding">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-11 col-lg-12">
+                <div class="rts-section rts-border-bottom-1 mb--50 pb--20">
+                    <h2 class="rts-section-title text-uppercase">
+                        {{ news_static.title }}
+                    </h2>
+                    {% if news_static.description %}
+                    <p class="rts-section-description">{{ news_static.description }}</p>
+                    {% endif %}
+                    <a href="{{ news_static.button_link }}" class="rts-nbg-btn btn-arrow">
+                        {{ news_static.button_text }}
+                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- blog content - hozircha statik -->
+        <div class="row g-5 justify-content-md-center">
+            <div class="col-md-11 col-lg-6">
+                <div class="rts-blog-post blog-v-full">
+                    <div class="single-blog-post">
+                        <a href="#" class="blog-thumb">
+                            <img src="{% static 'assets/images/blog/big-thumb-1.jpg' %}" alt="blog-thumb">
+                        </a>
+                        <div class="blog-content">
+                            <div class="post-meta">
+                                <div class="rt-author">
+                                    <span><i class="fa-light fa-user"></i></span>
+                                    <a href="#">Masum Sakib</a>
+                                </div>
+                                <div class="rt-date">
+                                    <span><i class="fal fa-calendar"></i></span>
+                                    <span>28 Noyabr, 2023</span>
+                                </div>
+                            </div>
+                            <a href="#" class="post-title">
+                                Sinf jamoasini shakllantirish — yangi narsalarni sinab ko'rish mumkin!
+                            </a>
+                        </div>
                     </div>
-                    <div class="single-cta-item">
-                        <h2 class="single-cta-item__title">№1</h2>
-                        <p>O'zbekistonda innovatsion tadqiqotlar</p>
+                </div>
+            </div>
+            <div class="col-md-11 col-lg-6">
+                <div class="rts-blog-post">
+                    <!-- single blog -->
+                    <div class="single-blog-post">
+                        <div class="blog-thumb">
+                            <a href="#">
+                                <img src="{% static 'assets/images/blog/small-thumb-1.jpg' %}" alt="post-thumbnail">
+                            </a>
+                        </div>
+                        <div class="blog-content">
+                            <div class="post-meta">
+                                <div class="rt-author">
+                                    <span><i class="fa-light fa-user"></i></span>
+                                    <a href="#">Samira Xon</a>
+                                </div>
+                                <div class="rt-date">
+                                    <span><i class="fal fa-calendar"></i></span>
+                                    <span>28 Noyabr, 2023</span>
+                                </div>
+                            </div>
+                            <a href="#" class="post-title">
+                                Oilalar ichidagi tengsizliklar va ularning ta'lim tizimiga ta'siri
+                            </a>
+                        </div>
+                    </div>
+                    <!-- single blog -->
+                    <div class="single-blog-post">
+                        <div class="blog-thumb">
+                            <a href="#">
+                                <img src="{% static 'assets/images/blog/small-thumb-2.jpg' %}" alt="post-thumbnail">
+                            </a>
+                        </div>
+                        <div class="blog-content">
+                            <div class="post-meta">
+                                <div class="rt-author">
+                                    <span><i class="fa-light fa-user"></i></span>
+                                    <a href="#">Zent Ekizie</a>
+                                </div>
+                                <div class="rt-date">
+                                    <span><i class="fal fa-calendar"></i></span>
+                                    <span>28 Noyabr, 2023</span>
+                                </div>
+                            </div>
+                            <a href="#" class="post-title">
+                                Ta'lim sohasidagi zamonaviy yondashuvlar va innovatsiyalar
+                            </a>
+                        </div>
+                    </div>
+                    <!-- single blog -->
+                    <div class="single-blog-post">
+                        <div class="blog-thumb">
+                            <a href="#">
+                                <img src="{% static 'assets/images/blog/small-thumb-3.jpg' %}" alt="post-thumbnail">
+                            </a>
+                        </div>
+                        <div class="blog-content">
+                            <div class="post-meta">
+                                <div class="rt-author">
+                                    <span><i class="fa-light fa-user"></i></span>
+                                    <a href="#">Zayed Xon</a>
+                                </div>
+                                <div class="rt-date">
+                                    <span><i class="fal fa-calendar"></i></span>
+                                    <span>28 Noyabr, 2023</span>
+                                </div>
+                            </div>
+                            <a href="#" class="post-title">
+                                O'nlab yillik taraqqiyotdan so'ng, yurak-qon tomir salomatligi ko'rsatkichlari
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- 4. Yangiliklar -->
-<section class="blog pt--120">
-    <div class="container">
-        <div class="row">
-            <div class="rts__section--wrapper v__8">
-                <div class="rts__section--wrapper--left">
-                    <h2 class="rts__section--title mb--15">So'nggi yangiliklar</h2>
-                    <p class="rts__section--description">Eng muhim ma'lumotlar bilan tanishing</p>
-                </div>
-                <div class="rts__section--link">
-                    <a href="#" class="rts-nbg-btn btn-arrow">Barchasini ko'rish
-                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="row g-5">
-            <div class="col-lg-6 col-md-6">
-                <div class="blog__single--item">
-                    <a href="#" class="blog__single--item--link">
-                        <div class="blog__single--item--thumb">
-                            <img src="{% static 'assets/images/blog/blog__1.jpg' %}" alt="">
-                        </div>
-                    </a>
-                    <div class="blog__single--item--meta">
-                        <a href="#" class="blog__cat">Universitet</a>
-                        <h5 class="blog__single--item--title">
-                            <a href="#">Yangi o'quv yili boshlandi</a>
-                        </h5>
-                        <p class="blog__single--item--excerpt">Universitda yangi ta'lim yili tantanali ravishda ochildi</p>
-                        <div class="blog__single--item--info">
-                            <div class="author">
-                                <span><i class="fa-thin fa-user"></i></span>
-                                <a href="#">Matbuot xizmati</a>
-                            </div>
-                            <div class="date">
-                                <span><i class="fa-sharp fa-thin fa-calendar"></i></span>
-                                <p>{{ "now"|date:"d M, Y" }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="blog__single--item">
-                    <a href="#" class="blog__single--item--link">
-                        <div class="blog__single--item--thumb">
-                            <img src="{% static 'assets/images/blog/blog__2.jpg' %}" alt="">
-                        </div>
-                    </a>
-                    <div class="blog__single--item--meta">
-                        <a href="#" class="blog__cat">Ta'lim</a>
-                        <h5 class="blog__single--item--title">
-                            <a href="#">Xalqaro granti e'lon qilindi</a>
-                        </h5>
-                        <p class="blog__single--item--excerpt">Talabalar uchun yangi imkoniyatlar ochildi</p>
-                        <div class="blog__single--item--info">
-                            <div class="author">
-                                <span><i class="fa-thin fa-user"></i></span>
-                                <a href="#">Matbuot xizmati</a>
-                            </div>
-                            <div class="date">
-                                <span><i class="fa-sharp fa-thin fa-calendar"></i></span>
-                                <p>{{ "now"|date:"d M, Y" }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+{% endif %}
 
 <!-- 5. Hamkorlar -->
-<div class="rts-brand v_1 pb--85 pt--85">
+{% if partners %}
+<div class="rts-brand v_1 pb--85">
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-lg-12 col-md-11">
@@ -257,253 +407,121 @@
                     }
                 }'>
                     <div class="swiper-wrapper">
+                        {% for partner in partners %}
                         <div class="swiper-slide">
                             <div class="single-brand-logo">
-                                <a href="#"><img src="{% static 'assets/images/brand/01.svg' %}" alt=""></a>
+                                <a href="{{ partner.link|default:'#' }}">
+                                    <img src="{{ partner.logo.url }}" alt="{{ partner.name }}">
+                                </a>
                             </div>
                         </div>
-                        <div class="swiper-slide">
-                            <div class="single-brand-logo">
-                                <a href="#"><img src="{% static 'assets/images/brand/02.svg' %}" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="single-brand-logo">
-                                <a href="#"><img src="{% static 'assets/images/brand/03.svg' %}" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="single-brand-logo">
-                                <a href="#"><img src="{% static 'assets/images/brand/04.svg' %}" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="single-brand-logo">
-                                <a href="#"><img src="{% static 'assets/images/brand/05.svg' %}" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="single-brand-logo">
-                                <a href="#"><img src="{% static 'assets/images/brand/06.svg' %}" alt=""></a>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+{% endif %}
 
-<!-- 6. Universitet litsenziyasi -->
+{% if license_static %}
 <section class="rts__section rts__light rts-section-padding">
     <div class="container">
         <div class="row">
             <div class="rts__section--wrapper">
-                <h2 class="rts__section--title">Litsenziya va Akkreditatsiya</h2>
+                <h2 class="rts__section--title">{{ license_static.title }}</h2>
                 <div class="rts__section--link">
-                    <a href="#" class="rts-nbg-btn btn-arrow">Batafsil
+                    <a href="{{ license_static.button_link }}" class="rts-nbg-btn btn-arrow">{{ license_static.button_text }}
                         <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
                     </a>
                 </div>
             </div>
         </div>
         <div class="row g-5">
+            {% for item in license_items %}
             <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="rts__program--item" style="background-image: url({% static 'assets/images/program/program__1.jpg' %});">
-                    <h5 class="rts__program--item--title">Ta'lim litsenziyasi</h5>
-                    <p class="rts__program--item--description">O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi tomonidan berilgan rasmiy ta'lim litsenziyasi.</p>
-                    <a href="#" class="rts-nbg-btn btn-arrow">Ko'rish
+                <div class="rts__program--item" style="background-image: url({{ item.background_image.url }});">
+                    <h5 class="rts__program--item--title">{{ item.title }}</h5>
+                    <p class="rts__program--item--description">{{ item.description }}</p>
+                    <a href="{{ item.button_link }}" class="rts-nbg-btn btn-arrow">{{ item.button_text }}
                         <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="rts__program--item" style="background-image: url({% static 'assets/images/program/program__2.jpg' %});">
-                    <h5 class="rts__program--item--title">Davlat Akkreditatsiyasi</h5>
-                    <p class="rts__program--item--description">Davlat akkreditatsiya markazining 5 yillik muddatga berilgan sifat sertifikati va akkreditatsiya guvohnomasi.</p>
-                    <a href="#" class="rts-nbg-btn btn-arrow">Ko'rish
-                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="rts__program--item" style="background-image: url({% static 'assets/images/program/program__3.jpg' %});">
-                    <h5 class="rts__program--item--title">ISO 9001:2015</h5>
-                    <p class="rts__program--item--description">Ta'lim sifati boshqaruv tizimi bo'yicha xalqaro ISO 9001:2015 standarti sertifikati va attestatsiyasi.</p>
-                    <a href="#" class="rts-nbg-btn btn-arrow">Ko'rish
-                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="rts__program--item" style="background-image: url({% static 'assets/images/program/program__4.jpg' %});">
-                    <h5 class="rts__program--item--title">Xalqaro Akkreditatsiya</h5>
-                    <p class="rts__program--item--description">Evropa ta'lim sifati ta'minlash agentligi (ENQA) va QS World University Rankings tomonidan tan olingan.</p>
-                    <a href="#" class="rts-nbg-btn btn-arrow">Ko'rish
-                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
-                    </a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
-<!-- Universitet litsenziyasi end -->
+{% endif %}
 
 <!-- 7. Ta'lim dasturlari -->
+{% if program_static %}
 <section class="program rts-section-padding">
     <div class="container">
         <div class="row rt-center">
             <div class="col-sm-12">
                 <div class="rts__section--wrapper v__5">
-                    <h2 class="rts__section--title">Ta'lim dasturlari</h2>
+                    <h2 class="rts__section--title">{{ program_static.title }}</h2>
                 </div>
             </div>
         </div>
         <div class="row justify-content-md-center g-0">
+            {% for level in education_levels %}
             <div class="col-lg-4 col-md-10">
-                <div class="program__single--item">
+                <div class="program__single--item {{ level.style_class }}">
                     <div class="program__single--item--bg">
-                        <img src="{% static 'assets/images/program/program__bg.jpg' %}" alt="">
+                        <img src="{{ level.background_image.url }}" alt="{{ level.name }}">
                     </div>
-                    <h5 class="program__single--item--title">Bakalavriat</h5>
+                    <h5 class="program__single--item--title">{{ level.name }}</h5>
                     <ul class="program__single--item--list">
+                        {% for program in level.programs.all|slice:":4" %}
                         <li class="program__single--item--list--item">
-                            <a href="#" class="link__list">Antropologiya
+                            <a href="{{ program.get_link }}" class="link__list">{{ program.name }}
                                 <span><i class="fa-regular fa-arrow-right"></i></span>
                             </a>
                         </li>
-                        <li class="program__single--item--list--item">
-                            <a href="#" class="link__list">Amaliy matematika
-                                <span><i class="fa-regular fa-arrow-right"></i></span>
-                            </a>
-                        </li>
-                        <li class="program__single--item--list--item">
-                            <a href="#" class="link__list">Biotibbiyot muhandisligi
-                                <span><i class="fa-regular fa-arrow-right"></i></span>
-                            </a>
-                        </li>
-                        <li class="program__single--item--list--item">
-                            <a href="#" class="link__list">Astrofizika
-                                <span><i class="fa-regular fa-arrow-right"></i></span>
-                            </a>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-10">
-                <div class="program__single--item v__2">
-                    <div class="program__single--item--bg">
-                        <img src="{% static 'assets/images/program/program__bg.jpg' %}" alt="">
-                    </div>
-                    <h5 class="program__single--item--title">Magistratura</h5>
-                    <ul class="program__single--item--list">
-                        <li class="program__single--item--list--item">
-                            <a href="#" class="link__list">Amaliy hisoblash
-                                <span><i class="fa-regular fa-arrow-right"></i></span>
-                            </a>
-                        </li>
-                        <li class="program__single--item--list--item">
-                            <a href="#" class="link__list">Amaliy matematika
-                                <span><i class="fa-regular fa-arrow-right"></i></span>
-                            </a>
-                        </li>
-                        <li class="program__single--item--list--item">
-                            <a href="#" class="link__list">Kompyuter fanlari
-                                <span><i class="fa-regular fa-arrow-right"></i></span>
-                            </a>
-                        </li>
-                        <li class="program__single--item--list--item">
-                            <a href="#" class="link__list">Arxitektura
-                                <span><i class="fa-regular fa-arrow-right"></i></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-10">
-                <div class="program__single--item">
-                    <div class="program__single--item--bg">
-                        <img src="{% static 'assets/images/program/program__bg.jpg' %}" alt="">
-                    </div>
-                    <h5 class="program__single--item--title">Uzluksiz ta'lim</h5>
-                    <ul class="program__single--item--list">
-                        <li class="program__single--item--list--item">
-                            <a href="#" class="link__list">Shaxsiy rivojlanish
-                                <span><i class="fa-regular fa-arrow-right"></i></span>
-                            </a>
-                        </li>
-                        <li class="program__single--item--list--item">
-                            <a href="#" class="link__list">San'at va gumanitar fanlar
-                                <span><i class="fa-regular fa-arrow-right"></i></span>
-                            </a>
-                        </li>
-                        <li class="program__single--item--list--item">
-                            <a href="#" class="link__list">Sog'liqni saqlash
-                                <span><i class="fa-regular fa-arrow-right"></i></span>
-                            </a>
-                        </li>
-                        <li class="program__single--item--list--item">
-                            <a href="#" class="link__list">Ijtimoiy fanlar
-                                <span><i class="fa-regular fa-arrow-right"></i></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
+{% endif %}
+
 
 <!-- 8. Talabalar hayoti -->
+{% if student_life_static %}
 <section class="campus rts__primary__bg-2 rts-section-padding">
     <div class="container">
         <div class="row">
             <div class="rts__section--wrapper v__6">
                 <p class="rts__section--wrapper--description">
-                    Butun dunyodan kelgan ijodkor va muvaffaqiyatli odamlarning jonli jamiyatini qurish
+                    {{ student_life_static.description }}
                 </p>
                 <h2 class="rts__section--wrapper--title">
-                    Talabalar <span>Hayoti</span>
+                    {{ student_life_static.title }} <span>{{ student_life_static.title_highlight }}</span>
                 </h2>
             </div>
         </div>
         <div class="row g-5">
+            {% for item in student_life_items %}
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="campus__single--item">
-                    <a href="#">
+                    <a href="{{ item.link }}">
                         <div class="campus__single--item--thumb">
-                            <img src="{% static 'assets/images/campus/01.jpg' %}" alt="">
+                            {% if item.image %}
+                                <img src="{{ item.image.url }}" alt="{{ item.image_alt }}">
+                            {% endif %}
                         </div>
                     </a>
                     <h5 class="campus__single--item--title">
-                        <a href="#">Talabalar hayoti <span><i class="fa-light fa-arrow-right"></i></span></a>
+                        <a href="{{ item.link }}">{{ item.title }} <span><i class="fa-light fa-arrow-right"></i></span></a>
                     </h5>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="campus__single--item">
-                    <a href="#">
-                        <div class="campus__single--item--thumb">
-                            <img src="{% static 'assets/images/campus/02.jpg' %}" alt="">
-                        </div>
-                    </a>
-                    <h5 class="campus__single--item--title">
-                        <a href="#">San'at va Madaniyat <span><i class="fa-light fa-arrow-right"></i></span></a>
-                    </h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="campus__single--item">
-                    <a href="#">
-                        <div class="campus__single--item--thumb">
-                            <img src="{% static 'assets/images/campus/03.jpg' %}" alt="">
-                        </div>
-                    </a>
-                    <h5 class="campus__single--item--title">
-                        <a href="#">Dam olish va Sport <span><i class="fa-light fa-arrow-right"></i></span></a>
-                    </h5>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
     <div class="rts__shape">
@@ -512,297 +530,59 @@
         <img src="{% static 'assets/images/icon/compas_scale.svg' %}" class="rts__shape--3" alt="">
     </div>
 </section>
+{% endif %}
 
 <!-- 9. Yo'nalishlar -->
+{% if direction_static %}
 <section class="rts-faculty rts-section-padding">
     <div class="container">
         <div class="row justify-content-md-center">
-            <div class="col-lg-12 col-md-11 d-flex flex-wrap gap-5 justify-content-between align-items-start mb--60 border-bottom pb-5">
+            <div class="col-lg-12 col-md-11 mb--60 border-bottom pb-5">
                 <div class="rts-section">
-                    <h3 class="rts-section-title">Ta'lim yo'nalishlari</h3>
-                </div>
-                <div class="search-filter">
-                    <form action="#" class="cat-search-form">
-                        <input type="text" placeholder="Qidirish..." name="s" id="cat">
-                        <button type="submit" class="cat-search"><i class="fa-light fa-magnifying-glass"></i></button>
-                    </form>
+                    <h3 class="rts-section-title">{{ direction_static.title }}</h3>
                 </div>
             </div>
         </div>
         <div class="row g-5">
-            <!-- single item -->
+            {% for program in programs_list %}
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="single-cat-item">
                     <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/01.jpg' %}" alt="yo'nalish">
+                        {% if program.image %}
+                            <img src="{{ program.image.url }}" alt="{{ program.image_alt }}">
+                        {% endif %}
                     </div>
                     <div class="cat-meta">
                         <div class="cat-title">
-                            <a href="#">Axborot texnologiyalari</a>
+                            <a href="{{ program.get_link }}">{{ program.name }}</a>
+                        </div>
+                        <div class="cat-count">
+                            {{ program.education_level.name }}
                         </div>
                         <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                            <a href="{{ program.get_link }}" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/02.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Dasturiy injiniring</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/03.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Moliya va iqtisodiyot</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/04.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Menejment</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/05.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Muhandislik texnologiyalari</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/06.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Xorijiy tillar</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/07.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Biologiya va ekologiya</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/08.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Tibbiyot va farmatsevtika</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/09.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Pedagogika</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/10.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Geografiya va ekologiya</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/11.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Matematika va informatika</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/12.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Kimyo va kimyoviy texnologiya</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/13.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Psixologiya va konsalting</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/14.jpg' %}" alt="yo'nalish">
-                        <a href="#" class="cat-link-btn">Onlayn ta'lim</a>
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Turizm va mehmondo'stlik</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/15.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Arxitektura va qurilish</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="single-cat-item">
-                    <div class="cat-thumb">
-                        <img src="{% static 'assets/images/course/01.jpg' %}" alt="yo'nalish">
-                    </div>
-                    <div class="cat-meta">
-                        <div class="cat-title">
-                            <a href="#">Jurnalistika va ommaviy axborot</a>
-                        </div>
-                        <div class="cat-link">
-                            <a href="#" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         <div class="rts-load-more-btn rt-center mt--60">
-            <a href="#" class="rts-theme-btn primary lh-100">Ko'proq yuklash</a>
+            <a href="{{ direction_static.button_link }}" class="rts-theme-btn primary lh-100">{{ direction_static.button_text }}</a>
         </div>
     </div>
 </section>
-<!-- Yo'nalishlar end -->
+{% endif %}
 
 <!-- 10. Tadbirlar -->
+{% if event_static %}
 <section class="rts-notice rts-section-padding rts__light">
     <div class="container">
         <div class="row">
             <div class="rts__section--wrapper v__8">
-                <h2 class="rts__section--title">Yaqinlashib kelayotgan tadbirlar</h2>
+                <h2 class="rts__section--title">{{ event_static.title }}</h2>
                 <div class="rts__section--link">
-                    <a href="#" class="rts-nbg-btn btn-arrow">Barchasini ko'rish
+                    <a href="{{ event_static.button_link }}" class="rts-nbg-btn btn-arrow">{{ event_static.button_text }}
                         <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
                     </a>
                 </div>
@@ -813,84 +593,49 @@
                 <div class="rts-event-section">
                     <div class="rts-event-section-content">
                         <ul class="list-unstyled rts-counter">
+                            {% for event in upcoming_events %}
                             <li class="single-event">
                                 <div class="single-event-counter">
                                     <div class="count-number rt-clip-text"></div>
                                 </div>
                                 <div class="single-event-content">
-                                    <h5 class="event-title">Xilma-xillik, Tenglik va Inklyuziya</h5>
+                                    <h5 class="event-title">{{ event.title }}</h5>
                                     <div class="single-event-content-meta">
                                         <div class="event-date">
                                             <span><i class="fal fa-calendar"></i></span>
-                                            <span>28 Noyabr, 2024</span>
+                                            <span>{{ event.event_date|date:"d E, Y" }}</span>
                                         </div>
+                                        {% if event.event_time %}
                                         <div class="event-time">
                                             <span><i class="fa-sharp fa-thin fa-clock"></i></span>
-                                            <span>10:30</span>
+                                            <span>{{ event.event_time|time:"H:i" }}</span>
                                         </div>
+                                        {% endif %}
+                                        {% if event.venue_address %}
                                         <div class="event-place">
                                             <span><i class="fa-sharp fa-thin fa-location-dot"></i></span>
-                                            <span>Toshkent, O'zbekiston</span>
+                                            <span>{{ event.venue_address }}</span>
                                         </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </li>
-                            <li class="single-event">
-                                <div class="single-event-counter">
-                                    <div class="count-number rt-clip-text"></div>
-                                </div>
-                                <div class="single-event-content">
-                                    <h5 class="event-title">Moliyaviy savodxonlik seminar</h5>
-                                    <div class="single-event-content-meta">
-                                        <div class="event-date">
-                                            <span><i class="fal fa-calendar"></i></span>
-                                            <span>05 Dekabr, 2024</span>
-                                        </div>
-                                        <div class="event-time">
-                                            <span><i class="fa-sharp fa-thin fa-clock"></i></span>
-                                            <span>14:00</span>
-                                        </div>
-                                        <div class="event-place">
-                                            <span><i class="fa-sharp fa-thin fa-location-dot"></i></span>
-                                            <span>Toshkent, O'zbekiston</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="single-event">
-                                <div class="single-event-counter">
-                                    <div class="count-number rt-clip-text"></div>
-                                </div>
-                                <div class="single-event-content">
-                                    <h5 class="event-title">Karyera rivojlantirish konferensiyasi</h5>
-                                    <div class="single-event-content-meta">
-                                        <div class="event-date">
-                                            <span><i class="fal fa-calendar"></i></span>
-                                            <span>12 Dekabr, 2024</span>
-                                        </div>
-                                        <div class="event-time">
-                                            <span><i class="fa-sharp fa-thin fa-clock"></i></span>
-                                            <span>09:00</span>
-                                        </div>
-                                        <div class="event-place">
-                                            <span><i class="fa-sharp fa-thin fa-location-dot"></i></span>
-                                            <span>Toshkent, O'zbekiston</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="col-md-11 col-lg-5">
                 <div class="event__background">
-                    <img src="{% static 'assets/images/event/event__bg.jpg' %}" alt="">
+                    {% if event_static.side_image %}
+                        <img src="{{ event_static.side_image.url }}" alt="">
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </section>
+{% endif %}
 
 <!-- 11. Rektorat va Rahbariyat -->
 <section class="rts__section rts-section-padding">

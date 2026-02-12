@@ -1,13 +1,27 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="{{ LANGUAGE_CODE }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Xalqaro Innovatsion Universitet{% endblock %}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/fav.svg' %}">
-    
+
+    {% if site_settings %}
+        <title>{% block title %}{{ site_settings.site_name }}{% endblock %}</title>
+        <meta name="description" content="{% block description %}{{ site_settings.site_description }}{% endblock %}">
+        <meta name="keywords" content="{% block keywords %}{{ site_settings.site_keywords }}{% endblock %}">
+
+        {% if site_settings.favicon %}
+            <link rel="shortcut icon" type="image/x-icon" href="{{ site_settings.favicon.url }}">
+        {% else %}
+            <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/fav.svg' %}">
+        {% endif %}
+    {% else %}
+        <title>{% block title_default %}Xalqaro Innovatsion Universitet{% endblock %}</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/fav.svg' %}">
+    {% endif %}
+
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/plugins/animate.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/plugins/fontawesome.min.css' %}">
@@ -19,35 +33,53 @@
     <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/plugins/jquery-ui.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+
     {% block extra_css %}{% endblock %}
+
+    {% if site_settings %}
+        <!-- SEO & Analytics -->
+        {% if site_settings.google_analytics %}
+            {{ site_settings.google_analytics|safe }}
+        {% endif %}
+
+        {% if site_settings.yandex_metrika %}
+            {{ site_settings.yandex_metrika|safe }}
+        {% endif %}
+
+        {% if site_settings.facebook_pixel %}
+            {{ site_settings.facebook_pixel|safe }}
+        {% endif %}
+    {% endif %}
 </head>
 
 <body>
     <!-- Header -->
     {% include 'components/header.html' %}
-    
+
     <!-- Main Content -->
     {% block content %}{% endblock %}
-    
+
     <!-- Footer -->
     {% include 'components/footer.html' %}
-    
+
     <!-- Off Canvas Menu -->
     {% include 'components/offcanvas.html' %}
-    
+
     <!-- Search Area -->
+    {% if header_settings and header_settings.show_search %}
     <div class="search-input-area">
         <div class="container">
             <div class="search-input-inner">
                 <div class="input-div">
-                    <input class="search-input autocomplete ui-autocomplete-input" type="text" placeholder="Qidiruv" autocomplete="off">
+                    <input class="search-input autocomplete ui-autocomplete-input" type="text" placeholder="{% trans 'Qidiruv' %}" autocomplete="off">
                     <button><i class="far fa-search"></i></button>
                 </div>
             </div>
         </div>
         <div id="close" class="search-close-icon"><i class="far fa-times"></i></div>
     </div>
+    {% endif %}
     
     <!-- Back to Top -->
     <div class="progress-wrap">

@@ -1,15 +1,24 @@
 {% load static %}
+{% load i18n %}
 <footer class="rts-footer rts-footer-padding v_2">
     <div class="container">
+        {% if footer_settings and footer_settings.show_newsletter %}
         <div class="row justify-content-center">
             <div class="rts-footer-newsletter">
                 <div class="col-lg-10">
                     <div class="rts-newsletter-box-content">
-                        <h4 class="newsletter-title">Yangiliklar uchun obuna bo'ling</h4>
+                        <h4 class="newsletter-title">
+                            {{ footer_settings.newsletter_title|default:"Yangiliklar uchun obuna bo'ling" }}
+                        </h4>
+                        {% if footer_settings.newsletter_description %}
+                            <p class="newsletter-description">{{ footer_settings.newsletter_description }}</p>
+                        {% endif %}
                         <div class="newsletter-form w-530">
                             <form action="#" method="post">
-                                <input type="email" name="email" id="email" placeholder="Email manzilingizni kiriting" required>
-                                <button type="submit" class="rts-nbg-btn btn-arrow">Obuna bo'lish 
+                                {% csrf_token %}
+                                <input type="email" name="email" id="email" placeholder="{% trans 'Email manzilingizni kiriting' %}" required>
+                                <button type="submit" class="rts-nbg-btn btn-arrow">
+                                    {% trans "Obuna bo'lish" %}
                                     <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
                                 </button>
                             </form>
@@ -18,89 +27,129 @@
                 </div>
             </div>
         </div>
+        {% endif %}
+
         <div class="row gy-5 gy-lg-0">
+            {# About Column #}
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="rts-footer-widget w-320">
                     <a href="{% url 'home:home' %}" class="d-block rts-footer-logo mb--40">
-                        <img src="{% static 'assets/images/logo/logo__white.svg' %}" alt="XIU">
+                        {% if site_settings and site_settings.logo_white %}
+                            <img src="{{ site_settings.logo_white.url }}" alt="{{ site_settings.site_name }}">
+                        {% else %}
+                            <img src="{% static 'assets/images/logo/logo__white.svg' %}" alt="XIU">
+                        {% endif %}
                     </a>
-                    <p>
-                        Xalqaro Innovatsion Universitet - zamonaviy ta'lim va ilm-fan markazi. 
-                        Biz sifatli ta'lim va professional kadrlar tayyorlashga intilamiz.
-                    </p>
+
+                    {% if footer_settings and footer_settings.about_text %}
+                        <p>{{ footer_settings.about_text }}</p>
+                    {% elif site_settings and site_settings.site_description %}
+                        <p>{{ site_settings.site_description|truncatewords:30 }}</p>
+                    {% else %}
+                        <p>{% trans "Xalqaro Innovatsion Universitet - zamonaviy ta'lim va ilm-fan markazi. Biz sifatli ta'lim va professional kadrlar tayyorlashga intilamiz." %}</p>
+                    {% endif %}
+
+                    {% if site_settings %}
                     <div class="rts-contact-link">
-                        <a href="mailto:info@xiu.uz"><i class="fa-sharp fa-light fa-location-dot"></i> Toshkent, O'zbekiston</a>
-                        <a href="tel:+998712345678"><i class="fa-thin fa-phone"></i> +998 (71) 234-56-78</a>
+                        {% if site_settings.address %}
+                            <a href="#"><i class="fa-sharp fa-light fa-location-dot"></i> {{ site_settings.address }}</a>
+                        {% endif %}
+                        {% if site_settings.phone %}
+                            <a href="tel:{{ site_settings.phone }}"><i class="fa-thin fa-phone"></i> {{ site_settings.phone }}</a>
+                        {% endif %}
+                        {% if site_settings.email %}
+                            <a href="mailto:{{ site_settings.email }}"><i class="fa-thin fa-envelope"></i> {{ site_settings.email }}</a>
+                        {% endif %}
                     </div>
+                    {% endif %}
                 </div>
             </div>
-            <div class="col-lg-2 col-md-6 col-sm-6">
-                <div class="rts-footer-widget">
-                    <h6 class="rt-semi">Universitet</h6>
-                    <div class="rts-footer-menu">
-                        <ul>
-                            <li><a href="#">Universitet haqida</a></li>
-                            <li><a href="#">Fakultetlar</a></li>
-                            <li><a href="#">Tuzilma</a></li>
-                            <li><a href="#">Rektorat</a></li>
-                            <li><a href="#">Tariximiz</a></li>
-                        </ul>
+
+            {# Footer Category Menus #}
+            {% for category in footer_categories %}
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="rts-footer-widget{% if forloop.counter == 2 %} ml--30{% endif %}">
+                        <h6 class="rt-semi">{{ category.title }}</h6>
+                        <div class="rts-footer-menu">
+                            <ul>
+                                {% for item in category.get_menu_items %}
+                                    <li>
+                                        <a href="{{ item.get_url }}"{% if item.open_new_tab %} target="_blank"{% endif %}>
+                                            {% if item.icon %}<i class="{{ item.icon }}"></i> {% endif %}
+                                            {{ item.title }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-2 col-md-6 col-sm-4">
-                <div class="rts-footer-widget ml--30">
-                    <h6 class="rt-semi">Qabul</h6>
-                    <div class="rts-footer-menu">
-                        <ul>
-                            <li><a href="#">Bakalavriat</a></li>
-                            <li><a href="#">Magistratura</a></li>
-                            <li><a href="#">Yo'nalishlar</a></li>
-                            <li><a href="#">Hujjatlar</a></li>
-                            <li><a href="#">Kontraktlar</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+
+            {# Recent News Column #}
+            {% if footer_settings and footer_settings.show_recent_news %}
             <div class="col-lg-4 col-md-6 col-sm-8">
                 <div class="rts-footer-widget ml--30">
-                    <h6 class="rt-semi">So'nggi yangiliklar</h6>
+                    <h6 class="rt-semi">{% trans "So'nggi yangiliklar" %}</h6>
                     <div class="rts-post-widget">
                         <ul class="list-unstyled">
+                            {# Bu qismni keyinchalik news app bilan to'ldiramiz #}
                             <li class="single-post">
                                 <a href="#" class="blog-thumb">
-                                    <img src="{% static 'assets/images/blog/w-1.jpg' %}" alt="yangilik">
+                                    <img src="{% static 'assets/images/blog/w-1.jpg' %}" alt="{% trans 'yangilik' %}">
                                 </a>
                                 <div class="post-content">
                                     <span class="rt-date">{{ "now"|date:"d F, Y" }}</span>
-                                    <a href="#">Yangilik sarlavhasi</a>
+                                    <a href="#">{% trans "Yangilik sarlavhasi" %}</a>
                                 </div>
                             </li>
                             <li class="single-post">
                                 <a href="#" class="blog-thumb">
-                                    <img src="{% static 'assets/images/blog/small-thumb-1.jpg' %}" alt="yangilik">
+                                    <img src="{% static 'assets/images/blog/small-thumb-1.jpg' %}" alt="{% trans 'yangilik' %}">
                                 </a>
                                 <div class="post-content">
                                     <span class="rt-date">{{ "now"|date:"d F, Y" }}</span>
-                                    <a href="#">Yangilik sarlavhasi</a>
+                                    <a href="#">{% trans "Yangilik sarlavhasi" %}</a>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </footer>
 
+{# Copyright Section #}
+{% if footer_settings and footer_settings.show_copyright %}
 <div class="rts-footer-copy-right v_1">
     <div class="container">
         <div class="row">
-            <div class="rt-center">
-                <p class="--p-xs">Copyright &copy; <span id="year">{{ "now"|date:"Y" }}</span> Barcha huquqlar himoyalangan 
-                    <a href="{% url 'home:home' %}">Xalqaro Innovatsion Universitet</a>
+            <div class="col-lg-6 col-md-6">
+                <p class="--p-xs">
+                    {% if site_settings and site_settings.copyright_text %}
+                        {{ site_settings.copyright_text }}
+                    {% else %}
+                        Copyright &copy; <span id="year">{{ "now"|date:"Y" }}</span> {% trans "Barcha huquqlar himoyalangan" %}
+                        {% if site_settings %}
+                            <a href="{% url 'home:home' %}">{{ site_settings.site_name }}</a>
+                        {% endif %}
+                    {% endif %}
                 </p>
             </div>
+            {% if social_networks %}
+            <div class="col-lg-6 col-md-6 text-end">
+                <div class="footer-social-links">
+                    {% for social in social_networks %}
+                        <a href="{{ social.url }}" target="_blank" rel="noopener noreferrer" title="{{ social.name }}">
+                            <i class="{{ social.icon }}"></i>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
+{% endif %}

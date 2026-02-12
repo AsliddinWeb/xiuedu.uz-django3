@@ -1,4 +1,23 @@
 {% load static %}
+{% load i18n %}
+<!-- Top Banner -->
+{% if header_settings and header_settings.show_banner and header_settings.banner_text %}
+<div class="header-top-banner">
+    <div class="container">
+        <div class="banner-content">
+            {% if header_settings.banner_link %}
+                <a href="{{ header_settings.banner_link }}">
+                    {{ header_settings.banner_text }}
+                    <i class="fa-regular fa-arrow-right"></i>
+                </a>
+            {% else %}
+                <span>{{ header_settings.banner_text }}</span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
 <header class="header header__sticky v__2">
     <div class="container">
         <div class="row">
@@ -6,72 +25,194 @@
                 <div class="header__wrapper">
                     <div class="header__logo">
                         <a href="{% url 'home:home' %}" class="header__logo--link">
-                            <img src="{% static 'assets/images/logo/logo__two.svg' %}" alt="XIU">
+                            {% if site_settings and site_settings.logo %}
+                                <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}">
+                            {% else %}
+                                <img src="{% static 'assets/images/logo/logo__two.svg' %}" alt="XIU">
+                            {% endif %}
                         </a>
                     </div>
                     <div class="header__menu">
                         <div class="navigation">
                             <nav class="navigation__menu">
                                 <ul>
-                                    <li class="navigation__menu--item">
-                                        <a href="{% url 'home:home' %}" class="navigation__menu--item__link">Bosh sahifa</a>
-                                    </li>
-                                    <li class="navigation__menu--item has-child has-arrow">
-                                        <a href="javascript:void(0);" class="navigation__menu--item__link">Universitet haqida</a>
-                                        <ul class="submenu sub__style">
-                                            <li><a href="#">Universitet tarixi</a></li>
-                                            <li><a href="#">Rektorat</a></li>
-                                            <li><a href="#">Tuzilma</a></li>
-                                            <li><a href="#">Rekvizitlar</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="navigation__menu--item has-child has-arrow">
-                                        <a href="javascript:void(0);" class="navigation__menu--item__link">Fakultetlar</a>
-                                        <ul class="submenu sub__style">
-                                            <li><a href="#">Fakultetlar</a></li>
-                                            <li><a href="#">Kafedralar</a></li>
-                                            <li><a href="#">Yo'nalishlar</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="navigation__menu--item has-child has-arrow">
-                                        <a href="javascript:void(0);" class="navigation__menu--item__link">Qabul</a>
-                                        <ul class="submenu sub__style">
-                                            <li><a href="#">Bakalavriat</a></li>
-                                            <li><a href="#">Magistratura</a></li>
-                                            <li><a href="#">Hujjatlar</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="navigation__menu--item has-child has-arrow">
-                                        <a href="javascript:void(0);" class="navigation__menu--item__link">Yangiliklar</a>
-                                        <ul class="submenu sub__style">
-                                            <li><a href="#">Yangiliklar</a></li>
-                                            <li><a href="#">E'lonlar</a></li>
-                                            <li><a href="#">Tadbirlar</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="navigation__menu--item">
-                                        <a href="#" class="navigation__menu--item__link">Aloqa</a>
-                                    </li>
+                                    {% for menu in header_menus %}
+                                        {% if menu.has_children %}
+                                            {% if menu.is_mega_menu %}
+                                                {# MEGA MENU #}
+                                                <li class="navigation__menu--item has-child has-arrow mega-menu">
+                                                    {% if menu.url %}
+                                                        <a href="{{ menu.get_url }}" class="navigation__menu--item__link"{% if menu.open_new_tab %} target="_blank"{% endif %}>
+                                                    {% else %}
+                                                        <span class="navigation__menu--item__link">
+                                                    {% endif %}
+                                                        {% if menu.icon %}<i class="{{ menu.icon }}"></i> {% endif %}
+                                                        {{ menu.title }}
+                                                        {% if menu.show_badge and menu.badge_text %}
+                                                            <span class="badge" style="background-color: {{ menu.badge_color }}">{{ menu.badge_text }}</span>
+                                                        {% endif %}
+                                                    {% if menu.url %}
+                                                        </a>
+                                                    {% else %}
+                                                        </span>
+                                                    {% endif %}
+                                                    <div class="rts-megamenu">
+                                                        <div class="container">
+                                                            <div class="row g-5">
+                                                                {% for child in menu.get_children %}
+                                                                    <div class="col-lg-3 col-md-6">
+                                                                        <div class="mega-menu-item">
+                                                                            <h6 class="mega-menu-title">
+                                                                                <a href="{{ child.get_url }}">{{ child.title }}</a>
+                                                                            </h6>
+                                                                            {% if child.description %}
+                                                                                <p class="mega-menu-desc">{{ child.description }}</p>
+                                                                            {% endif %}
+                                                                            {% if child.has_children %}
+                                                                                <ul class="mega-menu-list">
+                                                                                    {% for subchild in child.get_children %}
+                                                                                        <li>
+                                                                                            <a href="{{ subchild.get_url }}"{% if subchild.open_new_tab %} target="_blank"{% endif %}>
+                                                                                                {% if subchild.icon %}<i class="{{ subchild.icon }}"></i> {% endif %}
+                                                                                                {{ subchild.title }}
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    {% endfor %}
+                                                                                </ul>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            {% else %}
+                                                {# REGULAR DROPDOWN #}
+                                                <li class="navigation__menu--item has-child has-arrow">
+                                                    {% if menu.url %}
+                                                        <a href="{{ menu.get_url }}" class="navigation__menu--item__link"{% if menu.open_new_tab %} target="_blank"{% endif %}>
+                                                    {% else %}
+                                                        <span class="navigation__menu--item__link">
+                                                    {% endif %}
+                                                        {% if menu.icon %}<i class="{{ menu.icon }}"></i> {% endif %}
+                                                        {{ menu.title }}
+                                                        {% if menu.show_badge and menu.badge_text %}
+                                                            <span class="badge" style="background-color: {{ menu.badge_color }}">{{ menu.badge_text }}</span>
+                                                        {% endif %}
+                                                    {% if menu.url %}
+                                                        </a>
+                                                    {% else %}
+                                                        </span>
+                                                    {% endif %}
+                                                    <ul class="submenu sub__style">
+                                                        {% for child in menu.get_children %}
+                                                            {% if child.has_children %}
+                                                                <li class="has-child">
+                                                                    {% if child.url %}
+                                                                        <a href="{{ child.get_url }}"{% if child.open_new_tab %} target="_blank"{% endif %}>
+                                                                    {% else %}
+                                                                        <span>
+                                                                    {% endif %}
+                                                                        {% if child.icon %}<i class="{{ child.icon }}"></i> {% endif %}
+                                                                        {{ child.title }}
+                                                                    {% if child.url %}
+                                                                        </a>
+                                                                    {% else %}
+                                                                        </span>
+                                                                    {% endif %}
+                                                                    <ul class="submenu">
+                                                                        {% for subchild in child.get_children %}
+                                                                            <li>
+                                                                                <a href="{{ subchild.get_url }}"{% if subchild.open_new_tab %} target="_blank"{% endif %}>
+                                                                                    {% if subchild.icon %}<i class="{{ subchild.icon }}"></i> {% endif %}
+                                                                                    {{ subchild.title }}
+                                                                                </a>
+                                                                            </li>
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                </li>
+                                                            {% else %}
+                                                                <li>
+                                                                    {% if child.url %}
+                                                                        <a href="{{ child.get_url }}"{% if child.open_new_tab %} target="_blank"{% endif %}>
+                                                                    {% else %}
+                                                                        <span>
+                                                                    {% endif %}
+                                                                        {% if child.icon %}<i class="{{ child.icon }}"></i> {% endif %}
+                                                                        {{ child.title }}
+                                                                        {% if child.show_badge and child.badge_text %}
+                                                                            <span class="badge" style="background-color: {{ child.badge_color }}">{{ child.badge_text }}</span>
+                                                                        {% endif %}
+                                                                    {% if child.url %}
+                                                                        </a>
+                                                                    {% else %}
+                                                                        </span>
+                                                                    {% endif %}
+                                                                </li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        {% else %}
+                                            {# SINGLE MENU ITEM #}
+                                            <li class="navigation__menu--item">
+                                                <a href="{{ menu.get_url }}" class="navigation__menu--item__link"{% if menu.open_new_tab %} target="_blank"{% endif %}>
+                                                    {% if menu.icon %}<i class="{{ menu.icon }}"></i> {% endif %}
+                                                    {{ menu.title }}
+                                                    {% if menu.show_badge and menu.badge_text %}
+                                                        <span class="badge" style="background-color: {{ menu.badge_color }}">{{ menu.badge_text }}</span>
+                                                    {% endif %}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
                                 </ul>
                             </nav>
                         </div>
                     </div>
                     <div class="header__right">
                         <div class="header__right--item">
+                            {% if header_settings and header_settings.show_language_switcher %}
                             <div id="langSwitcher" class="lang__trigger">
-                                <span class="selected__lang">O'zbekcha</span>
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+
+                                <span class="selected__lang">
+                                    {% if LANGUAGE_CODE == 'uz' %}O'zbekcha
+                                    {% elif LANGUAGE_CODE == 'ru' %}Русский
+                                    {% elif LANGUAGE_CODE == 'en' %}English
+                                    {% endif %}
+                                </span>
                                 <i class="fa-light fa-globe"></i>
                                 <div class="translate__lang">
                                     <ul>
-                                        <li><a href="#" class="active">O'zbekcha</a></li>
-                                        <li><a href="#">Русский</a></li>
-                                        <li><a href="#">English</a></li>
+                                        {% for language in languages %}
+                                            <li>
+                                                <form action="{% url 'set_language' %}" method="post" style="display: inline;">
+                                                    {% csrf_token %}
+                                                    <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                                                    <input name="language" type="hidden" value="{{ language.code }}">
+                                                    <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer; text-align: left; width: 100%;"
+                                                            class="{% if language.code == LANGUAGE_CODE %}active{% endif %}">
+                                                        {{ language.name_local }}
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
+                            {% endif %}
+
+                            {% if header_settings and header_settings.show_search %}
                             <div id="search-btn" class="search__trigger">
                                 <i class="fa-sharp fa-light fa-magnifying-glass"></i>
                             </div>
+                            {% endif %}
+
                             <div id="menu-btn" class="menu__trigger">
                                 <img src="{% static 'assets/images/icon/menu__bar.svg' %}" alt="menu">
                             </div>
