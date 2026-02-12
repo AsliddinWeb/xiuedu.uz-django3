@@ -10,3 +10,8 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', ''),
     }
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://old.xiuedu.uz',
+    'http://www.old.xiuedu.uz',
+]
