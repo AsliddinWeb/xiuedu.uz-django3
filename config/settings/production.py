@@ -12,6 +12,6 @@ DATABASES = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://old.xiuedu.uz',
-    'http://www.old.xiuedu.uz',
+    'https://old.xiuedu.uz',
+    'https://www.old.xiuedu.uz',
 ]
