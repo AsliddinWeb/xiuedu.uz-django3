@@ -25,8 +25,8 @@ class SiteSettings(BaseModel):
 
     # Xarita
     map_iframe = models.TextField(blank=True, verbose_name="Google Maps iframe")
-    latitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True, verbose_name="Kenglik")
-    longitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True, verbose_name="Uzunlik")
+    latitude = models.DecimalField(max_digits=17, decimal_places=14, blank=True, null=True, verbose_name="Kenglik")
+    longitude = models.DecimalField(max_digits=17, decimal_places=14, blank=True, null=True, verbose_name="Uzunlik")
 
     # Copyright
     copyright_text = models.CharField(max_length=255, blank=True, verbose_name="Copyright matni")
