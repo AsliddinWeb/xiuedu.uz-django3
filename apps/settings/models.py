@@ -83,6 +83,7 @@ class HeaderSettings(BaseModel):
 
     # Header button
     show_header_button = models.BooleanField(default=True, verbose_name="Header tugmasini ko'rsatish")
+    button_image = models.ImageField(upload_to='banners/', blank=True, null=True, verbose_name="Banner rasmi")
     button_text = models.CharField(max_length=100, blank=True, verbose_name="Tugma matni")
     button_link = models.CharField(blank=True, verbose_name="Tugma havolasi")
 

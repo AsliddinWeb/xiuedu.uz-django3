@@ -60,7 +60,7 @@ class HeaderSettingsAdmin(TranslationAdmin):
             'fields': ('show_banner', 'banner_text', 'banner_link')
         }),
         ('Header tugma', {
-            'fields': ('show_header_button', 'button_text', 'button_link')
+            'fields': ('show_header_button', 'button_image', 'button_text', 'button_link')
         }),
         ('Qo\'shimcha', {
             'fields': ('show_search', 'show_language_switcher', 'is_active')
