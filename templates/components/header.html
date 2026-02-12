@@ -26,7 +26,7 @@
                     <div class="header__logo">
                         <a href="{% url 'home:home' %}" class="header__logo--link">
                             {% if site_settings and site_settings.logo %}
-                                <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}" style="max-height: 80px; width: auto;">
+                                <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}" style="max-height: 52px; width: auto;">
                             {% else %}
                                 <img src="{% static 'assets/images/logo/logo__two.svg' %}" alt="XIU">
                             {% endif %}
