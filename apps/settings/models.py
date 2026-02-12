@@ -15,8 +15,8 @@ class SiteSettings(BaseModel):
     favicon = models.FileField(upload_to='logos/', verbose_name="Favicon")
 
     # Aloqa ma'lumotlari
-    phone = models.CharField(max_length=20, verbose_name="Telefon")
-    phone_2 = models.CharField(max_length=20, blank=True, verbose_name="Telefon 2")
+    phone = models.CharField(max_length=25, verbose_name="Telefon")
+    phone_2 = models.CharField(max_length=25, blank=True, verbose_name="Telefon 2")
     email = models.EmailField(verbose_name="Email")
     email_2 = models.EmailField(blank=True, verbose_name="Email 2")
 
