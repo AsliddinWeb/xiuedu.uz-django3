@@ -10,6 +10,15 @@ class Faculty(BaseModel, ImageModel):
     description = models.TextField(blank=True, verbose_name="Tavsif")
     short_description = models.CharField(max_length=500, blank=True, verbose_name="Qisqa tavsif")
 
+    # Dekan xabari
+    dean_message_title = models.CharField(max_length=255, blank=True, verbose_name="Dekan xabari sarlavhasi")
+    dean_message = models.TextField(blank=True, verbose_name="Dekan xabari")
+
+    # Missiya va Viziya
+    mission = models.TextField(blank=True, verbose_name="Missiya")
+    vision = models.TextField(blank=True, verbose_name="Viziya")
+    mission_image = models.ImageField(upload_to='faculties/mission/', blank=True, null=True, verbose_name="Missiya rasmi")
+
     # Dekan
     dean_full_name = models.CharField(max_length=255, verbose_name="Dekan F.I.O")
     dean_photo = models.ImageField(upload_to='faculties/deans/', blank=True, null=True, verbose_name="Dekan rasmi")
@@ -37,16 +46,24 @@ class Department(BaseModel, ImageModel):
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE, related_name='departments', verbose_name="Fakultet")
     name = models.CharField(max_length=255, verbose_name="Nomi")
     slug = models.SlugField(max_length=255, unique=True, verbose_name="Slug")
-    description = models.TextField(blank=True, verbose_name="Tavsif")
+    description = models.TextField(blank=True, verbose_name="Kafedra tarixi")
 
     # Kafedra mudiri
     head_full_name = models.CharField(max_length=255, verbose_name="Mudir F.I.O")
     head_photo = models.ImageField(upload_to='faculties/department_heads/', blank=True, null=True, verbose_name="Mudir rasmi")
     head_degree = models.CharField(max_length=255, blank=True, verbose_name="Ilmiy daraja")
+    head_rank = models.CharField(max_length=255, blank=True, verbose_name="Ilmiy unvon")
     head_phone = models.CharField(max_length=50, blank=True, verbose_name="Mudir telefoni")
     head_email = models.EmailField(blank=True, verbose_name="Mudir emaili")
     head_bio = models.TextField(blank=True, verbose_name="Mudir haqida")
     head_reception_days = models.CharField(max_length=255, blank=True, verbose_name="Qabul kunlari")
+    head_address = models.CharField(max_length=500, blank=True, verbose_name="Manzil")
+
+    # Ilmiy faoliyat
+    scientific_activity = models.TextField(blank=True, verbose_name="Ilmiy faoliyat")
+
+    # Xalqaro hamkorlik
+    international_cooperation = models.TextField(blank=True, verbose_name="Xalqaro hamkorlik")
 
     order = models.PositiveIntegerField(default=0, verbose_name="Tartib")
     is_active = models.BooleanField(default=True, verbose_name="Faolmi?")
@@ -208,3 +225,57 @@ class ProgramVariant(BaseModel):
         if self.contract_price:
             return f"{self.contract_price:,.0f} so'm".replace(',', ' ')
         return "Belgilanmagan"
+
+
+class FacultyBreadcrumb(BaseModel):
+    """Fakultetlar sahifasi breadcrumb"""
+    title = models.CharField(max_length=255, verbose_name="Sarlavha")
+    subtitle = models.CharField(max_length=255, blank=True, verbose_name="Qo'shimcha sarlavha")
+    parent_title = models.CharField(max_length=100, default="Bosh sahifa", verbose_name="Ota sahifa nomi")
+    parent_link = models.CharField(max_length=255, default="/", verbose_name="Ota sahifa havolasi")
+    background_image = models.ImageField(upload_to='faculties/breadcrumb/', verbose_name="Fon rasmi")
+
+    is_active = models.BooleanField(default=True, verbose_name="Faolmi?")
+
+    class Meta:
+        verbose_name = "Breadcrumb"
+        verbose_name_plural = "Breadcrumb"
+
+    def __str__(self):
+        return "Fakultetlar breadcrumb"
+
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            FacultyBreadcrumb.objects.filter(is_active=True).update(is_active=False)
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def get_active(cls):
+        return cls.objects.filter(is_active=True).first()
+
+
+class DivisionBreadcrumb(BaseModel):
+    """Bo'limlar sahifasi breadcrumb"""
+    title = models.CharField(max_length=255, verbose_name="Sarlavha")
+    subtitle = models.CharField(max_length=255, blank=True, verbose_name="Qo'shimcha sarlavha")
+    parent_title = models.CharField(max_length=100, default="Bosh sahifa", verbose_name="Ota sahifa nomi")
+    parent_link = models.CharField(max_length=255, default="/", verbose_name="Ota sahifa havolasi")
+    background_image = models.ImageField(upload_to='divisions/breadcrumb/', verbose_name="Fon rasmi")
+
+    is_active = models.BooleanField(default=True, verbose_name="Faolmi?")
+
+    class Meta:
+        verbose_name = "Bo'limlar Breadcrumb"
+        verbose_name_plural = "Bo'limlar Breadcrumb"
+
+    def __str__(self):
+        return "Bo'limlar breadcrumb"
+
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            DivisionBreadcrumb.objects.filter(is_active=True).update(is_active=False)
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def get_active(cls):
+        return cls.objects.filter(is_active=True).first()

@@ -2,7 +2,7 @@ from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin, TranslationTabularInline
 
 from .models import (Faculty, Department, Staff, Division,
-                     EducationLevel, Program, ProgramVariant)
+                     EducationLevel, Program, ProgramVariant, FacultyBreadcrumb, DivisionBreadcrumb)
 
 
 # Inlines
@@ -63,6 +63,12 @@ class FacultyAdmin(TranslationAdmin):
             'fields': ('dean_full_name', 'dean_photo', 'dean_degree',
                        'dean_phone', 'dean_email', 'dean_bio', 'dean_reception_days')
         }),
+        ('Dekan xabari', {
+            'fields': ('dean_message_title', 'dean_message')
+        }),
+        ('Missiya va Viziya', {
+            'fields': ('mission', 'vision', 'mission_image')
+        }),
         ('Boshqa', {
             'fields': ('order', 'is_active')
         }),
@@ -81,14 +87,26 @@ class DepartmentAdmin(TranslationAdmin):
 
     fieldsets = (
         ('Asosiy ma\'lumotlar', {
-            'fields': ('faculty', 'name', 'slug', 'description')
+            'fields': ('faculty', 'name', 'slug')
         }),
         ('Rasm', {
             'fields': ('image', 'image_alt_uz', 'image_alt_ru', 'image_alt_en')
         }),
         ('Kafedra mudiri', {
-            'fields': ('head_full_name', 'head_photo', 'head_degree',
-                       'head_phone', 'head_email', 'head_bio', 'head_reception_days')
+            'fields': ('head_full_name', 'head_photo', 'head_degree', 'head_rank',
+                       'head_phone', 'head_email', 'head_bio',
+                       'head_reception_days', 'head_address')
+        }),
+        ('Kafedra haqida', {
+            'fields': ('description',)
+        }),
+        ('Ilmiy faoliyat', {
+            'fields': ('scientific_activity',),
+            'classes': ('collapse',)
+        }),
+        ('Xalqaro hamkorlik', {
+            'fields': ('international_cooperation',),
+            'classes': ('collapse',)
         }),
         ('Boshqa', {
             'fields': ('order', 'is_active')
@@ -196,3 +214,43 @@ class ProgramAdmin(TranslationAdmin):
             'fields': ('link', 'order', 'is_active')
         }),
     )
+
+
+@admin.register(FacultyBreadcrumb)
+class FacultyBreadcrumbAdmin(TranslationAdmin):
+    list_display = ['title', 'is_active']
+    list_filter = ['is_active']
+
+    fieldsets = (
+        ('Asosiy ma\'lumotlar', {
+            'fields': ('title', 'subtitle', 'parent_title', 'parent_link', 'background_image')
+        }),
+        ('Boshqa', {
+            'fields': ('is_active',)
+        }),
+    )
+
+    def has_add_permission(self, request):
+        if FacultyBreadcrumb.objects.exists():
+            return False
+        return True
+
+
+@admin.register(DivisionBreadcrumb)
+class DivisionBreadcrumbAdmin(TranslationAdmin):
+    list_display = ['title', 'is_active']
+    list_filter = ['is_active']
+
+    fieldsets = (
+        ('Asosiy ma\'lumotlar', {
+            'fields': ('title', 'subtitle', 'parent_title', 'parent_link', 'background_image')
+        }),
+        ('Boshqa', {
+            'fields': ('is_active',)
+        }),
+    )
+
+    def has_add_permission(self, request):
+        if DivisionBreadcrumb.objects.exists():
+            return False
+        return True

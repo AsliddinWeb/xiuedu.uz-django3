@@ -19,6 +19,8 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('', include('apps.home.urls')),
     path('about/', include('apps.about.urls')),
+    path('faculties/', include('apps.faculties.urls')),
+    path('divisions/', include('apps.faculties.urls_divisions')),
 )
 
 # Media va Static

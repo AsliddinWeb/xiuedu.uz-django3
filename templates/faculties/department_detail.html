@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- BREADCRUMB -->
+<section class="rts-breadcrumb breadcrumb-height breadcrumb-height-full breadcumb-bg" style="background-image: url({% if department.image %}{{ department.image.url }}{% else %}{% static 'assets/images/banner/breadcrumb-2.jpg' %}{% endif %});">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Bosh sahifa</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'faculties:faculty_list' %}">Fakultetlar</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'faculties:faculty_detail' faculty.slug %}">{{ faculty.name }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ department.name }}</li>
+                    </ul>
+                    <h2 class="section-title">{{ department.name }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Kontent -->
+<div class="rts-faculty-details rts__pt100">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Tab navigatsiya -->
+                <ul class="nav nav-pills nav-fill mb--50" id="departmentTab" role="tablist" style="border-bottom: 2px solid #eee; padding-bottom: 15px;">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#dept-about" type="button" role="tab">
+                            <i class="fa-light fa-building-columns me-2"></i> Kafedra haqida
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="team-tab" data-bs-toggle="tab" data-bs-target="#dept-team" type="button" role="tab">
+                            <i class="fa-light fa-users me-2"></i> Kafedra tarkibi
+                        </button>
+                    </li>
+                    {% if department.scientific_activity %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="science-tab" data-bs-toggle="tab" data-bs-target="#dept-science" type="button" role="tab">
+                            <i class="fa-light fa-atom me-2"></i> Ilmiy faoliyat
+                        </button>
+                    </li>
+                    {% endif %}
+                    {% if department.international_cooperation %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="international-tab" data-bs-toggle="tab" data-bs-target="#dept-international" type="button" role="tab">
+                            <i class="fa-light fa-globe me-2"></i> Xalqaro hamkorlik
+                        </button>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                <!-- Tab kontent -->
+                <div class="tab-content" id="departmentTabContent">
+
+                    <!-- 1. Kafedra haqida -->
+                    <div class="tab-pane fade show active" id="dept-about" role="tabpanel">
+
+                        <!-- Kafedra mudiri -->
+                        {% if department.head_full_name %}
+                        <h3 class="rts-section-title mb--40">Kafedra mudiri</h3>
+                        <div class="row g-5 mb--60">
+                            <div class="col-lg-4 col-md-6">
+                                {% if department.head_photo %}
+                                <div class="faculty-image text-center">
+                                    <img class="img-fluid mw-100" src="{{ department.head_photo.url }}" alt="{{ department.head_full_name }}">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <h5>{{ department.head_full_name }}</h5>
+                                <p>Kafedra mudiri</p>
+                                {% if department.head_degree %}
+                                <p class="mb-0"><strong>Ilmiy darajasi:</strong></p>
+                                <p>{{ department.head_degree }}</p>
+                                {% endif %}
+                                {% if department.head_rank %}
+                                <p class="mb-0"><strong>Ilmiy unvoni:</strong></p>
+                                <p>{{ department.head_rank }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                {% if department.head_reception_days %}
+                                <p class="mb-0"><strong>Qabul kunlari:</strong></p>
+                                <p>{{ department.head_reception_days }}</p>
+                                {% endif %}
+                                {% if department.head_address %}
+                                <p class="mb-0"><strong>Manzil:</strong></p>
+                                <p>{{ department.head_address }}</p>
+                                {% endif %}
+                                {% if department.head_phone %}
+                                <p class="mb-0"><strong>Telefon:</strong></p>
+                                <p><a href="tel:{{ department.head_phone }}">{{ department.head_phone }}</a></p>
+                                {% endif %}
+                                {% if department.head_email %}
+                                <p class="mb-0"><strong>Email:</strong></p>
+                                <p><a href="mailto:{{ department.head_email }}">{{ department.head_email }}</a></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Kafedra tarixi -->
+                        {% if department.description %}
+                        <h3 class="rts-section-title mb--40">Kafedra tarixi</h3>
+                        <div class="mb--60">
+                            {{ department.description|safe }}
+                        </div>
+                        {% endif %}
+
+                        {% if department.head_bio %}
+                        <h3 class="rts-section-title mb--40">Mudir haqida</h3>
+                        <div class="mb--60">
+                            {{ department.head_bio|safe }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- 2. Kafedra tarkibi -->
+                    <div class="tab-pane fade" id="dept-team" role="tabpanel">
+                        <h3 class="rts-section-title mb--40">Kafedra tarkibi</h3>
+                        <div class="row g-5">
+                            {% for staff in staff_members %}
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <div class="rts__single--member">
+                                    <div class="rts__single--member--thumb">
+                                        {% if staff.photo %}
+                                            <img src="{{ staff.photo.url }}" alt="{{ staff.full_name }}">
+                                        {% else %}
+                                            <img src="{% static 'assets/images/speaker/default-avatar.jpg' %}" alt="{{ staff.full_name }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="rts__single--member--meta">
+                                        <h5 class="rts__single--member--meta--title">
+                                            {{ staff.full_name }}
+                                        </h5>
+                                        <span class="rts__single--member--meta--designation">
+                                            {{ staff.position }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="col-12">
+                                <p class="text-center">Hozircha ma'lumot kiritilmagan</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- 3. Ilmiy faoliyat -->
+                    {% if department.scientific_activity %}
+                    <div class="tab-pane fade" id="dept-science" role="tabpanel">
+                        <h3 class="rts-section-title mb--40">Ilmiy faoliyat</h3>
+                        <div class="entry-content">
+                            {{ department.scientific_activity|safe }}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- 4. Xalqaro hamkorlik -->
+                    {% if department.international_cooperation %}
+                    <div class="tab-pane fade" id="dept-international" role="tabpanel">
+                        <h3 class="rts-section-title mb--40">Xalqaro hamkorlik</h3>
+                        <div class="entry-content">
+                            {{ department.international_cooperation|safe }}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
