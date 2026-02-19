@@ -373,3 +373,108 @@ class EventStaticTexts(BaseModel):
     @classmethod
     def get_active(cls):
         return cls.objects.filter(is_active=True).first()
+
+
+# 11. Rahbariyat
+class LeadershipStaticTexts(BaseModel):
+    """Rahbariyat section statik matnlari"""
+    title = models.CharField(max_length=255, default="Universitet Rahbariyati", verbose_name="Sarlavha")
+    button_text = models.CharField(max_length=100, default="Batafsil", verbose_name="Tugma matni")
+    button_link = models.CharField(max_length=255, default="/about/leadership/", verbose_name="Tugma havolasi")
+
+    is_active = models.BooleanField(default=True, verbose_name="Faolmi?")
+
+    class Meta:
+        verbose_name = "11. Rahbariyat statik matnlari"
+        verbose_name_plural = "11. Rahbariyat statik matnlari"
+
+    def __str__(self):
+        return "Rahbariyat section matnlari"
+
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            LeadershipStaticTexts.objects.filter(is_active=True).update(is_active=False)
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def get_active(cls):
+        return cls.objects.filter(is_active=True).first()
+
+
+# 12. Qabul
+class AdmissionBanner(BaseModel):
+    """Qabul banner section"""
+    title = models.CharField(max_length=255, default="2024-2025 o'quv yili uchun qabul boshlandi", verbose_name="Sarlavha")
+    description = models.TextField(blank=True, verbose_name="Tavsif")
+    background_image = models.ImageField(upload_to='home/admission/', verbose_name="Fon rasmi")
+    button_text = models.CharField(max_length=100, default="Ariza topshirish", verbose_name="Tugma matni")
+    button_link = models.CharField(max_length=255, default="/admissions/", verbose_name="Tugma havolasi")
+
+    is_active = models.BooleanField(default=True, verbose_name="Faolmi?")
+
+    class Meta:
+        verbose_name = "12. Qabul banner"
+        verbose_name_plural = "12. Qabul banner"
+
+    def __str__(self):
+        return "Qabul banner"
+
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            AdmissionBanner.objects.filter(is_active=True).update(is_active=False)
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def get_active(cls):
+        return cls.objects.filter(is_active=True).first()
+
+
+# 13. Grantlar
+class ScholarshipBanner(BaseModel):
+    """Grantlar va Moliyaviy yordam section"""
+    title = models.CharField(max_length=255, default="Grantlar va Moliyaviy yordam", verbose_name="Sarlavha")
+    description = models.TextField(blank=True, verbose_name="Tavsif")
+    button_text = models.CharField(max_length=100, default="Batafsil", verbose_name="Tugma matni")
+    button_link = models.CharField(max_length=255, default="/scholarships/", verbose_name="Tugma havolasi")
+
+    is_active = models.BooleanField(default=True, verbose_name="Faolmi?")
+
+    class Meta:
+        verbose_name = "13. Grantlar banner"
+        verbose_name_plural = "13. Grantlar banner"
+
+    def __str__(self):
+        return "Grantlar banner"
+
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            ScholarshipBanner.objects.filter(is_active=True).update(is_active=False)
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def get_active(cls):
+        return cls.objects.filter(is_active=True).first()
+
+
+# 14. Fotogalereya
+class GalleryStaticTexts(BaseModel):
+    """Galereya section statik matnlari"""
+    title = models.CharField(max_length=255, default="Fotogalereya", verbose_name="Sarlavha")
+
+    is_active = models.BooleanField(default=True, verbose_name="Faolmi?")
+
+    class Meta:
+        verbose_name = "14. Galereya statik matnlari"
+        verbose_name_plural = "14. Galereya statik matnlari"
+
+    def __str__(self):
+        return "Galereya section matnlari"
+
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            GalleryStaticTexts.objects.filter(is_active=True).update(is_active=False)
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def get_active(cls):
+        return cls.objects.filter(is_active=True).first()

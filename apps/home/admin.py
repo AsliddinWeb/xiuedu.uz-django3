@@ -3,7 +3,8 @@ from modeltranslation.admin import TranslationAdmin
 
 from .models import (BannerSettings, BannerVideo, BannerSlider, BannerNavigation, AboutSection,
                      StatisticItem, NewsStaticTexts, Partner, LicenseStaticTexts, LicenseItem, ProgramStaticTexts,
-                     StudentLifeStaticTexts, StudentLifeItem, DirectionStaticTexts, EventStaticTexts)
+                     StudentLifeStaticTexts, StudentLifeItem, DirectionStaticTexts, EventStaticTexts,
+                     LeadershipStaticTexts, AdmissionBanner, ScholarshipBanner, GalleryStaticTexts)
 
 
 @admin.register(BannerSettings)
@@ -342,5 +343,94 @@ class EventStaticTextsAdmin(TranslationAdmin):
 
     def has_add_permission(self, request):
         if EventStaticTexts.objects.exists():
+            return False
+        return True
+
+
+@admin.register(LeadershipStaticTexts)
+class LeadershipStaticTextsAdmin(TranslationAdmin):
+    list_display = ['title', 'is_active']
+    list_filter = ['is_active']
+
+    fieldsets = (
+        ('Asosiy ma\'lumotlar', {
+            'fields': ('title',)
+        }),
+        ('Tugma', {
+            'fields': ('button_text', 'button_link')
+        }),
+        ('Boshqa', {
+            'fields': ('is_active',)
+        }),
+    )
+
+    def has_add_permission(self, request):
+        if LeadershipStaticTexts.objects.exists():
+            return False
+        return True
+
+
+@admin.register(AdmissionBanner)
+class AdmissionBannerAdmin(TranslationAdmin):
+    list_display = ['title', 'is_active']
+    list_filter = ['is_active']
+
+    fieldsets = (
+        ('Asosiy ma\'lumotlar', {
+            'fields': ('title', 'description', 'background_image')
+        }),
+        ('Tugma', {
+            'fields': ('button_text', 'button_link')
+        }),
+        ('Boshqa', {
+            'fields': ('is_active',)
+        }),
+    )
+
+    def has_add_permission(self, request):
+        if AdmissionBanner.objects.exists():
+            return False
+        return True
+
+
+@admin.register(ScholarshipBanner)
+class ScholarshipBannerAdmin(TranslationAdmin):
+    list_display = ['title', 'is_active']
+    list_filter = ['is_active']
+
+    fieldsets = (
+        ('Asosiy ma\'lumotlar', {
+            'fields': ('title', 'description')
+        }),
+        ('Tugma', {
+            'fields': ('button_text', 'button_link')
+        }),
+        ('Boshqa', {
+            'fields': ('is_active',)
+        }),
+    )
+
+    def has_add_permission(self, request):
+        if ScholarshipBanner.objects.exists():
+            return False
+        return True
+
+
+@admin.register(GalleryStaticTexts)
+class GalleryStaticTextsAdmin(TranslationAdmin):
+    list_display = ['title', 'is_active']
+    list_filter = ['is_active']
+
+    fieldsets = (
+        ('Asosiy ma\'lumotlar', {
+            'fields': ('title',)
+        }),
+        ('Boshqa', {
+            'fields': ('is_active',)
+        }),
+    )
+
+    def has_add_permission(self, request):
+        if GalleryStaticTexts.objects.exists():
             return False
         return True

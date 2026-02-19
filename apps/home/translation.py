@@ -3,7 +3,8 @@ from modeltranslation.translator import register, TranslationOptions
 from .models import (BannerSettings, BannerVideo, BannerSlider, BannerNavigation,
                      AboutSection, StatisticItem, NewsStaticTexts, Partner, LicenseStaticTexts, LicenseItem,
                      ProgramStaticTexts, StudentLifeStaticTexts, StudentLifeItem, DirectionStaticTexts,
-                     EventStaticTexts)
+                     EventStaticTexts, LeadershipStaticTexts, AdmissionBanner, ScholarshipBanner,
+                     GalleryStaticTexts)
 
 
 @register(BannerVideo)
@@ -77,3 +78,23 @@ class DirectionStaticTextsTranslationOptions(TranslationOptions):
 @register(EventStaticTexts)
 class EventStaticTextsTranslationOptions(TranslationOptions):
     fields = ('title', 'button_text')
+
+
+@register(LeadershipStaticTexts)
+class LeadershipStaticTextsTranslationOptions(TranslationOptions):
+    fields = ('title', 'button_text')
+
+
+@register(AdmissionBanner)
+class AdmissionBannerTranslationOptions(TranslationOptions):
+    fields = ('title', 'description', 'button_text')
+
+
+@register(ScholarshipBanner)
+class ScholarshipBannerTranslationOptions(TranslationOptions):
+    fields = ('title', 'description', 'button_text')
+
+
+@register(GalleryStaticTexts)
+class GalleryStaticTextsTranslationOptions(TranslationOptions):
+    fields = ('title',)

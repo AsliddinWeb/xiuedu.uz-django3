@@ -284,105 +284,67 @@
                 </div>
             </div>
         </div>
-        <!-- blog content - hozircha statik -->
         <div class="row g-5 justify-content-md-center">
+            {% if latest_news %}
+            <!-- Birinchi katta yangilik -->
             <div class="col-md-11 col-lg-6">
                 <div class="rts-blog-post blog-v-full">
                     <div class="single-blog-post">
                         <a href="#" class="blog-thumb">
-                            <img src="{% static 'assets/images/blog/big-thumb-1.jpg' %}" alt="blog-thumb">
+                            {% if latest_news.0.image %}
+                                <img src="{{ latest_news.0.image.url }}" alt="{{ latest_news.0.title }}">
+                            {% endif %}
                         </a>
                         <div class="blog-content">
                             <div class="post-meta">
                                 <div class="rt-author">
                                     <span><i class="fa-light fa-user"></i></span>
-                                    <a href="#">Masum Sakib</a>
+                                    <a href="#">{{ latest_news.0.author.get_full_name|default:latest_news.0.author.username }}</a>
                                 </div>
                                 <div class="rt-date">
                                     <span><i class="fal fa-calendar"></i></span>
-                                    <span>28 Noyabr, 2023</span>
+                                    <span>{{ latest_news.0.published_at|date:"d E, Y" }}</span>
                                 </div>
                             </div>
                             <a href="#" class="post-title">
-                                Sinf jamoasini shakllantirish — yangi narsalarni sinab ko'rish mumkin!
+                                {{ latest_news.0.title }}
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Qolgan kichik yangiliklar -->
             <div class="col-md-11 col-lg-6">
                 <div class="rts-blog-post">
-                    <!-- single blog -->
+                    {% for news in latest_news|slice:"1:4" %}
                     <div class="single-blog-post">
                         <div class="blog-thumb">
                             <a href="#">
-                                <img src="{% static 'assets/images/blog/small-thumb-1.jpg' %}" alt="post-thumbnail">
+                                {% if news.image %}
+                                    <img src="{{ news.image.url }}" alt="{{ news.title }}">
+                                {% endif %}
                             </a>
                         </div>
                         <div class="blog-content">
                             <div class="post-meta">
                                 <div class="rt-author">
                                     <span><i class="fa-light fa-user"></i></span>
-                                    <a href="#">Samira Xon</a>
+                                    <a href="#">{{ news.author.get_full_name|default:news.author.username }}</a>
                                 </div>
                                 <div class="rt-date">
                                     <span><i class="fal fa-calendar"></i></span>
-                                    <span>28 Noyabr, 2023</span>
+                                    <span>{{ news.published_at|date:"d E, Y" }}</span>
                                 </div>
                             </div>
                             <a href="#" class="post-title">
-                                Oilalar ichidagi tengsizliklar va ularning ta'lim tizimiga ta'siri
+                                {{ news.title }}
                             </a>
                         </div>
                     </div>
-                    <!-- single blog -->
-                    <div class="single-blog-post">
-                        <div class="blog-thumb">
-                            <a href="#">
-                                <img src="{% static 'assets/images/blog/small-thumb-2.jpg' %}" alt="post-thumbnail">
-                            </a>
-                        </div>
-                        <div class="blog-content">
-                            <div class="post-meta">
-                                <div class="rt-author">
-                                    <span><i class="fa-light fa-user"></i></span>
-                                    <a href="#">Zent Ekizie</a>
-                                </div>
-                                <div class="rt-date">
-                                    <span><i class="fal fa-calendar"></i></span>
-                                    <span>28 Noyabr, 2023</span>
-                                </div>
-                            </div>
-                            <a href="#" class="post-title">
-                                Ta'lim sohasidagi zamonaviy yondashuvlar va innovatsiyalar
-                            </a>
-                        </div>
-                    </div>
-                    <!-- single blog -->
-                    <div class="single-blog-post">
-                        <div class="blog-thumb">
-                            <a href="#">
-                                <img src="{% static 'assets/images/blog/small-thumb-3.jpg' %}" alt="post-thumbnail">
-                            </a>
-                        </div>
-                        <div class="blog-content">
-                            <div class="post-meta">
-                                <div class="rt-author">
-                                    <span><i class="fa-light fa-user"></i></span>
-                                    <a href="#">Zayed Xon</a>
-                                </div>
-                                <div class="rt-date">
-                                    <span><i class="fal fa-calendar"></i></span>
-                                    <span>28 Noyabr, 2023</span>
-                                </div>
-                            </div>
-                            <a href="#" class="post-title">
-                                O'nlab yillik taraqqiyotdan so'ng, yurak-qon tomir salomatligi ko'rsatkichlari
-                            </a>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -638,117 +600,63 @@
 {% endif %}
 
 <!-- 11. Rektorat va Rahbariyat -->
+{% if leadership_static %}
 <section class="rts__section rts-section-padding">
     <div class="container">
         <div class="row">
             <div class="rts__section--wrapper">
-                <h2 class="rts__section--title">Universitet Rahbariyati</h2>
+                <h2 class="rts__section--title">{{ leadership_static.title }}</h2>
                 <div class="rts__section--link">
-                    <a href="#" class="rts-nbg-btn btn-arrow">Batafsil
+                    <a href="{{ leadership_static.button_link }}" class="rts-nbg-btn btn-arrow">{{ leadership_static.button_text }}
                         <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
                     </a>
                 </div>
             </div>
         </div>
-        <!-- Rahbariyat a'zolari -->
         <div class="row g-5">
-            <!-- Rektor -->
+            {% for leader in leaders %}
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="rts__single--member">
                     <div class="rts__single--member--thumb">
                         <a href="#">
-                            <img src="{% static 'assets/images/speaker/teacher__1.jpg' %}" alt="Rektor">
+                            {% if leader.image %}
+                                <img src="{{ leader.image.url }}" alt="{{ leader.full_name }}">
+                            {% endif %}
                         </a>
                     </div>
                     <div class="rts__single--member--meta">
                         <h5 class="rts__single--member--meta--title">
-                            <a href="#">Prof. Aziz Alimov</a>
+                            <a href="#">{{ leader.degree }} {{ leader.full_name }}</a>
                         </h5>
                         <span class="rts__single--member--meta--designation">
-                            Rektor
+                            {{ leader.position }}
                         </span>
                     </div>
                 </div>
             </div>
-            <!-- Rektor o'rinbosari -->
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="rts__single--member">
-                    <div class="rts__single--member--thumb">
-                        <a href="#">
-                            <img src="{% static 'assets/images/speaker/teacher__2.jpg' %}" alt="Rektor o'rinbosari">
-                        </a>
-                    </div>
-                    <div class="rts__single--member--meta">
-                        <h5 class="rts__single--member--meta--title">
-                            <a href="#">Prof. Nodira Rahimova</a>
-                        </h5>
-                        <span class="rts__single--member--meta--designation">
-                            Rektor o'rinbosari (Ta'lim ishlari bo'yicha)
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <!-- Rektor o'rinbosari -->
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="rts__single--member">
-                    <div class="rts__single--member--thumb">
-                        <a href="#">
-                            <img src="{% static 'assets/images/speaker/teacher__3.jpg' %}" alt="Rektor o'rinbosari">
-                        </a>
-                    </div>
-                    <div class="rts__single--member--meta">
-                        <h5 class="rts__single--member--meta--title">
-                            <a href="#">Prof. Bobur Karimov</a>
-                        </h5>
-                        <span class="rts__single--member--meta--designation">
-                            Rektor o'rinbosari (Ilmiy ish va innovatsiyalar bo'yicha)
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <!-- Rektor o'rinbosari -->
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="rts__single--member">
-                    <div class="rts__single--member--thumb">
-                        <a href="#">
-                            <img src="{% static 'assets/images/speaker/teacher__4.jpg' %}" alt="Rektor o'rinbosari">
-                        </a>
-                    </div>
-                    <div class="rts__single--member--meta">
-                        <h5 class="rts__single--member--meta--title">
-                            <a href="#">Dotsent Shohruh Tursunov</a>
-                        </h5>
-                        <span class="rts__single--member--meta--designation">
-                            Rektor o'rinbosari (Moliya va ma'muriy ishlar bo'yicha)
-                        </span>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
-        <!-- Rahbariyat a'zolari end -->
     </div>
 </section>
-<!-- Rektorat va Rahbariyat end -->
+{% endif %}
 
 <!-- 12. Qabul -->
+{% if admission_banner %}
 <div class="rts-newsletter v_1 rts-cta-background rts__white">
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="rts-newsletter-box" style="background-image: url({% static 'assets/images/newsletter/bg-1.jpg' %});">
+                <div class="rts-newsletter-box" style="background-image: url({{ admission_banner.background_image.url }});">
                     <div class="rts-newsletter-box-content">
-                        <h4 class="newsletter-title">2024-2025 o'quv yili uchun qabul boshlandi
-                        </h4>
+                        <h4 class="newsletter-title">{{ admission_banner.title }}</h4>
+                        {% if admission_banner.description %}
                         <p class="newsletter-description" style="color: #fff; margin-bottom: 20px;">
-                            Xalqaro Innovatsion Universitetida o'qishni xohlaysizmi? Hoziroq ariza topshiring!
+                            {{ admission_banner.description }}
                         </p>
+                        {% endif %}
                         <div class="newsletter-form w-530">
-                            <a href="#" class="rts-theme-btn btn-arrow" style="display: inline-block;">
-                                Ariza topshirish 
-                                <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
-                            </a>
-                            <a href="#" class="rts-nbg-btn btn-arrow" style="display: inline-block; margin-left: 15px;">
-                                Batafsil ma'lumot
+                            <a href="{{ admission_banner.button_link }}" class="rts-theme-btn btn-arrow" style="display: inline-block; min-width: 220px;">
+                                {{ admission_banner.button_text }}
                                 <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
                             </a>
                         </div>
@@ -758,128 +666,52 @@
         </div>
     </div>
 </div>
-<!-- Qabul end -->
+{% endif %}
 
- <!-- 13. Grantlar -->
+<!-- 13. Grantlar -->
+{% if scholarship_banner %}
 <section class="rts-scholarship rts-scholarship-bg rts-section-height">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="rts-scholarship-info">
-                    <h2 class="rts-section-title">Grantlar va Moliyaviy yordam</h2>
-                    <p class="w-740 mb--50">Har semestr universitetimiz akademik jihatdan iqtidorli talabalarni turli grantlar bilan taqdirlaydi. Yiliga 100 milliondan ortiq so'm miqdorida grant ajratiladi.</p>
-                    <a href="#" class="rts-theme-btn btn-arrow">Batafsil<span><i class="fa-thin fa-arrow-right"></i></span></a>
+                    <h2 class="rts-section-title">{{ scholarship_banner.title }}</h2>
+                    {% if scholarship_banner.description %}
+                    <p class="w-740 mb--50">{{ scholarship_banner.description }}</p>
+                    {% endif %}
+                    <a href="{{ scholarship_banner.button_link }}" class="rts-theme-btn btn-arrow">{{ scholarship_banner.button_text }}<span><i class="fa-thin fa-arrow-right"></i></span></a>
                 </div>
             </div>
         </div>
     </div>
 </section>
+{% endif %}
 
-<!-- 14. Fotogalereya -->
-<div class="rts-campus-section rts-section-padding">
+{% if gallery_static %}
+<div class="rts-gallery section-bg rts-section-padding">
     <div class="container">
         <div class="row">
-            <div class="rts-section rt-center mb--45">
-                <h3 class="rts-section-title">Fotogalereya</h3>
-                <p class="rts-section-description">Universitet hayotidan lavhalar</p>
+            <div class="rts-section mb--50 rt-center">
+                <h2 class="rts-section-title">{{ gallery_static.title }}</h2>
             </div>
         </div>
-        <div class="row g-5">
-            <!-- single item -->
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="single-item">
-                    <div class="single-item__content">
-                        <div class="single-item__image">
-                            <img src="{% static 'assets/images/campus/01.jpg' %}" alt="O'quv jarayoni">
-                        </div>
-                        <div class="single-item__meta">
-                            <h5 class="item-title"><a href="#">O'quv jarayoni</a></h5>
-                            <p class="item-description">Zamonaviy auditoriyalar va laboratoriyalarda o'quv jarayoni. Talabalar professional professor-o'qituvchilar bilan birgalikda bilim olmoqdalar.</p>
-                        </div>
+        <div class="gallery-area">
+            <div class="row g-5">
+                {% for photo in gallery_images %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-gallery">
+                        <a href="{{ photo.get_large_url }}" class="single-gallery__item">
+                            <img src="{{ photo.image.url }}" alt="{{ photo.title }}">
+                            <div class="single-gallery__icon">
+                                <i class="fa-light fa-circle-plus"></i>
+                            </div>
+                        </a>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            <!-- single item end -->
-            <!-- single item -->
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="single-item">
-                    <div class="single-item__content">
-                        <div class="single-item__image">
-                            <img src="{% static 'assets/images/campus/02.jpg' %}" alt="Talabalar turar joyi">
-                        </div>
-                        <div class="single-item__meta">
-                            <h5 class="item-title"><a href="#">Talabalar turar joyi</a></h5>
-                            <p class="item-description">Zamonaviy va qulay talabalar turar joylari. Barcha qulayliklar bilan ta'minlangan xonalar va dam olish zonalari mavjud.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item end -->
-            <!-- single item -->
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="single-item">
-                    <div class="single-item__content">
-                        <div class="single-item__image">
-                            <img src="{% static 'assets/images/campus/03.jpg' %}" alt="Madaniy tadbirlar">
-                        </div>
-                        <div class="single-item__meta">
-                            <h5 class="item-title"><a href="#">Madaniy tadbirlar</a></h5>
-                            <p class="item-description">Universitet talabalarining boy madaniy hayoti. Turli milliy bayramlar, festivallar va ijodiy tadbirlar muntazam tashkil etiladi.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item end -->
-            <!-- single item -->
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="single-item">
-                    <div class="single-item__content">
-                        <div class="single-item__image">
-                            <img src="{% static 'assets/images/campus/01.jpg' %}" alt="Sport tadbirlari">
-                        </div>
-                        <div class="single-item__meta">
-                            <h5 class="item-title"><a href="#">Sport tadbirlari</a></h5>
-                            <p class="item-description">Universitetda turli sport turlari bo'yicha musobaqalar va mashg'ulotlar. Talabalar sog'lom turmush tarzini targ'ib qilishadi.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item end -->
-            <!-- single item -->
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="single-item">
-                    <div class="single-item__content">
-                        <div class="single-item__image">
-                            <img src="{% static 'assets/images/campus/02.jpg' %}" alt="Ilmiy konferensiyalar">
-                        </div>
-                        <div class="single-item__meta">
-                            <h5 class="item-title"><a href="#">Ilmiy konferensiyalar</a></h5>
-                            <p class="item-description">Xalqaro va mahalliy ilmiy konferensiyalar muntazam ravishda o'tkaziladi. Talabalar o'z tadqiqot ishlarini taqdimot qilish imkoniyatiga ega.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item end -->
-            <!-- single item -->
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="single-item">
-                    <div class="single-item__content">
-                        <div class="single-item__image">
-                            <img src="{% static 'assets/images/campus/03.jpg' %}" alt="Bitiruvchilar kechasi">
-                        </div>
-                        <div class="single-item__meta">
-                            <h5 class="item-title"><a href="#">Bitiruvchilar kechasi</a></h5>
-                            <p class="item-description">Har yili bitiruvchilar uchun tantanali kecha tashkil etiladi. Bu - talabalarning eng unutilmas kunlaridan biri hisoblanadi.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single item end -->
-        </div>
-        <div class="rts-load-more-btn rt-center mt--60">
-            <a href="#" class="rts-theme-btn primary lh-100">Barchasini ko'rish</a>
         </div>
     </div>
 </div>
-<!-- Fotogalereya end -->
+{% endif %}
 {% endblock %}
