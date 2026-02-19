@@ -18,6 +18,7 @@ urlpatterns = [
 # Til bilan URL'lar
 urlpatterns += i18n_patterns(
     path('', include('apps.home.urls')),
+    path('about/', include('apps.about.urls')),
 )
 
 # Media va Static

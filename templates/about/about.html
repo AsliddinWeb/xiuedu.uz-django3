@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- 1. BREADCRUMB -->
+{% if breadcrumb %}
+<section class="rts-breadcrumb breadcrumb-height breadcumb-bg" style="background-image: url({{ breadcrumb.background_image.url }});">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ breadcrumb.parent_link }}">{{ breadcrumb.parent_title }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb.title }}</li>
+                    </ul>
+                    <h2 class="section-title">{{ breadcrumb.title }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- 2. Universitet haqida -->
+{% if about_university %}
+<section class="rts-about-university rts-section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="rts-section">
+                <div class="col-lg-4 col-md-5">
+                    <h3 class="rts-section-title">{{ about_university.title }}</h3>
+                </div>
+                <div class="col-lg-8 col-md-7">
+                    <p class="rts-section-description">{{ about_university.description }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row g-5 justify-content-md-center justify-content-start">
+            <div class="col-lg-7 col-xl-8 col-md-11">
+                <div class="rts-about-section">
+                    {% if about_university.image %}
+                        <img src="{{ about_university.image.url }}" alt="{{ about_university.image_alt }}">
+                    {% endif %}
+                </div>
+            </div>
+            {% if about_statistics %}
+            <div class="col-lg-5 col-xl-4 col-md-11">
+                <div class="rts-about-details">
+                    {% for stat in about_statistics %}
+                    <div class="single-about-info">
+                        <div class="content">
+                            <h3 class="title">{{ stat.value }}</h3>
+                            {% if stat.icon %}
+                                <img src="{{ stat.icon.url }}" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="desc">
+                            <p>{{ stat.description }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- 3. Tarix -->
+{% if history %}
+<div class="rts-history">
+    <div class="container">
+        <div class="row g-5 justify-content-md-center justify-content-start align-items-center">
+            <div class="col-lg-6 col-md-11">
+                <div class="rts-history-image">
+                    {% if history.image %}
+                        <img src="{{ history.image.url }}" alt="{{ history.image_alt }}">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-11">
+                <div class="rts-history-section">
+                    <h4 class="rts-section-title mb--40">{{ history.title }}</h4>
+                    <p>
+                        {{ history.content }}
+                        {% if history.content_2 %}
+                        <span class="d-block mb--30"></span>
+                        {{ history.content_2 }}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- 4. Funfact -->
+{% if funfacts %}
+<div class="rts-funfact rts-section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="rts-funfact-wrapper">
+                    {% for fact in funfacts %}
+                    <div class="single-cta-item">
+                        <h2 class="single-cta-item__title">{{ fact.value }}</h2>
+                        <p>{{ fact.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- 5. Missiya -->
+{% if mission %}
+<section class="rts-mission">
+    <div class="container">
+        <div class="row justify-content-center rt-center">
+            <div class="rts-section mb--50">
+                <h2 class="rts-section-title">{{ mission.title }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="rts-timeline-section">
+                    <div class="rts-timeline-content">
+                        <div class="left-side">
+                            {% for item in mission_items_left %}
+                            <div class="single-timeline-item">
+                                <h5 class="timeline-title">{{ item.title }}</h5>
+                                <p>{{ item.description }}</p>
+                                {% if item.image %}
+                                    <img src="{{ item.image.url }}" alt="{{ item.image_alt }}">
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="separator"></div>
+                        <div class="right-side">
+                            {% for item in mission_items_right %}
+                            <div class="single-timeline-item">
+                                <h5 class="timeline-title">{{ item.title }}</h5>
+                                <p>{{ item.description }}</p>
+                                {% if item.image %}
+                                    <img src="{{ item.image.url }}" alt="{{ item.image_alt }}">
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- 6. Kampus sayohati -->
+{% if campus_tour %}
+<section class="rts-campus-tour rts-section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <h2 class="section-title rt-center mb--50">{{ campus_tour.title }}</h2>
+            <div class="col-12">
+                <div class="rts-video-section height-500 mb--50">
+                    <a href="{{ campus_tour.video_url }}" class="rts-video-section-player popup-video video-btn">
+                        <i class="fa-sharp fa-solid fa-play"></i>
+                    </a>
+                    <img src="{{ campus_tour.video_thumbnail.url }}" alt="{{ campus_tour.title }}">
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="rts-video-section-text rt-center mx-3">
+                    <p>{{ campus_tour.description }}</p>
+                    {% if campus_tour.button_text %}
+                    <a href="{{ campus_tour.button_link }}" class="mt--15 about-btn rts-nbg-btn btn-arrow">{{ campus_tour.button_text }}
+                        <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- 7. Rahbariyat -->
+{% if leaders %}
+<section class="rts__section rts-section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="rts__section--wrapper">
+                <h2 class="rts__section--title">Rahbariyat</h2>
+            </div>
+        </div>
+        <div class="row g-5">
+            {% for leader in leaders %}
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="rts__single--member">
+                    <div class="rts__single--member--thumb">
+                        <a href="#">
+                            {% if leader.image %}
+                                <img src="{{ leader.image.url }}" alt="{{ leader.full_name }}">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="rts__single--member--meta">
+                        <h5 class="rts__single--member--meta--title">
+                            <a href="#">{{ leader.degree }} {{ leader.full_name }}</a>
+                        </h5>
+                        <span class="rts__single--member--meta--designation">
+                            {{ leader.position }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
