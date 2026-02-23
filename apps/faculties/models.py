@@ -235,6 +235,24 @@ class FacultyBreadcrumb(BaseModel):
     parent_link = models.CharField(max_length=255, default="/", verbose_name="Ota sahifa havolasi")
     background_image = models.ImageField(upload_to='faculties/breadcrumb/', verbose_name="Fon rasmi")
 
+    # --- YANGI MAYDONLAR ---
+    dean_message_label = models.CharField(
+        max_length=100, default="Dekan xabari",
+        verbose_name="'Dekan xabari' sarlavhasi"
+    )
+    mission_label = models.CharField(
+        max_length=100, default="Missiya",
+        verbose_name="'Missiya' sarlavhasi"
+    )
+    vision_label = models.CharField(
+        max_length=100, default="Viziya",
+        verbose_name="'Viziya' sarlavhasi"
+    )
+    departments_label = models.CharField(
+        max_length=100, default="Kafedralar ro'yxati",
+        verbose_name="'Kafedralar ro'yxati' sarlavhasi"
+    )
+
     is_active = models.BooleanField(default=True, verbose_name="Faolmi?")
 
     class Meta:
@@ -279,3 +297,50 @@ class DivisionBreadcrumb(BaseModel):
     @classmethod
     def get_active(cls):
         return cls.objects.filter(is_active=True).first()
+
+
+class DepartmentBreadcrumb(BaseModel):
+    """Kafedralar sahifasi breadcrumb va label'lar"""
+    title = models.CharField(max_length=255, verbose_name="Sarlavha")
+    subtitle = models.CharField(max_length=255, blank=True, verbose_name="Qo'shimcha sarlavha")
+    parent_title = models.CharField(max_length=100, default="Bosh sahifa", verbose_name="Ota sahifa nomi")
+    parent_link = models.CharField(max_length=255, default="/", verbose_name="Ota sahifa havolasi")
+    background_image = models.ImageField(upload_to='departments/breadcrumb/', blank=True, null=True, verbose_name="Fon rasmi")
+
+    # --- Label maydonlar ---
+    tab_about_label = models.CharField(max_length=100, default="Kafedra haqida", verbose_name="'Kafedra haqida' tab")
+    tab_team_label = models.CharField(max_length=100, default="Kafedra tarkibi", verbose_name="'Kafedra tarkibi' tab")
+    tab_science_label = models.CharField(max_length=100, default="Ilmiy faoliyat", verbose_name="'Ilmiy faoliyat' tab")
+    tab_international_label = models.CharField(max_length=100, default="Xalqaro hamkorlik", verbose_name="'Xalqaro hamkorlik' tab")
+
+    head_title_label = models.CharField(max_length=100, default="Kafedra mudiri", verbose_name="'Kafedra mudiri' sarlavhasi")
+    head_position_label = models.CharField(max_length=100, default="Kafedra mudiri", verbose_name="'Kafedra mudiri' lavozimi")
+    degree_label = models.CharField(max_length=100, default="Ilmiy darajasi:", verbose_name="'Ilmiy darajasi' label")
+    rank_label = models.CharField(max_length=100, default="Ilmiy unvoni:", verbose_name="'Ilmiy unvoni' label")
+    reception_label = models.CharField(max_length=100, default="Qabul kunlari:", verbose_name="'Qabul kunlari' label")
+    address_label = models.CharField(max_length=100, default="Manzil:", verbose_name="'Manzil' label")
+    phone_label = models.CharField(max_length=100, default="Telefon:", verbose_name="'Telefon' label")
+    email_label = models.CharField(max_length=100, default="Email:", verbose_name="'Email' label")
+
+    history_label = models.CharField(max_length=100, default="Kafedra tarixi", verbose_name="'Kafedra tarixi' sarlavhasi")
+    about_head_label = models.CharField(max_length=100, default="Mudir haqida", verbose_name="'Mudir haqida' sarlavhasi")
+    team_label = models.CharField(max_length=100, default="Kafedra tarkibi", verbose_name="'Kafedra tarkibi' sarlavhasi")
+    science_label = models.CharField(max_length=100, default="Ilmiy faoliyat", verbose_name="'Ilmiy faoliyat' sarlavhasi")
+    international_label = models.CharField(max_length=100, default="Xalqaro hamkorlik", verbose_name="'Xalqaro hamkorlik' sarlavhasi")
+    empty_label = models.CharField(max_length=200, default="Hozircha ma'lumot kiritilmagan", verbose_name="Bo'sh holat matni")
+
+    is_active = models.BooleanField(default=True, verbose_name="Faolmi?")
+
+    class Meta:
+        verbose_name = "Kafedra breadcrumb"
+        verbose_name_plural = "Kafedra breadcrumb"
+
+    def __str__(self):
+        return self.title
+
+    @classmethod
+    def get_active(cls):
+        return cls.objects.filter(is_active=True).first()
+
+    def has_add_permission(self, request):
+        return not DepartmentBreadcrumb.objects.exists()

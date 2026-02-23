@@ -1,7 +1,7 @@
 from modeltranslation.translator import register, TranslationOptions
 
 from .models import (Faculty, Department, Staff, Division,
-                     EducationLevel, Program, ProgramVariant, FacultyBreadcrumb, DivisionBreadcrumb)
+                     EducationLevel, Program, ProgramVariant, FacultyBreadcrumb, DivisionBreadcrumb, DepartmentBreadcrumb)
 
 
 @register(Faculty)
@@ -48,9 +48,29 @@ class ProgramVariantTranslationOptions(TranslationOptions):
 
 @register(FacultyBreadcrumb)
 class FacultyBreadcrumbTranslationOptions(TranslationOptions):
-    fields = ('title', 'subtitle', 'parent_title')
+    fields = (
+        'title', 'subtitle', 'parent_title',
+        # --- YANGI ---
+        'dean_message_label',
+        'mission_label',
+        'vision_label',
+        'departments_label',
+    )
 
 
 @register(DivisionBreadcrumb)
 class DivisionBreadcrumbTranslationOptions(TranslationOptions):
     fields = ('title', 'subtitle', 'parent_title')
+
+
+@register(DepartmentBreadcrumb)
+class DepartmentBreadcrumbTranslationOptions(TranslationOptions):
+    fields = (
+        'title', 'subtitle', 'parent_title',
+        'tab_about_label', 'tab_team_label', 'tab_science_label', 'tab_international_label',
+        'head_title_label', 'head_position_label',
+        'degree_label', 'rank_label', 'reception_label',
+        'address_label', 'phone_label', 'email_label',
+        'history_label', 'about_head_label', 'team_label',
+        'science_label', 'international_label', 'empty_label',
+    )

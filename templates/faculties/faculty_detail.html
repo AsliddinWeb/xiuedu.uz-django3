@@ -3,15 +3,42 @@
 
 {% block content %}
 <!-- BREADCRUMB -->
-<section class="rts-breadcrumb breadcrumb-height breadcrumb-height-full breadcumb-bg" style="background-image: url({% if faculty.image %}{{ faculty.image.url }}{% else %}{% static 'assets/images/banner/breadcrumb-2.jpg' %}{% endif %});">
+<section class="rts-breadcrumb breadcrumb-height breadcrumb-height-full breadcumb-bg"
+         style="background-image: url(
+             {% if breadcrumb and breadcrumb.background_image %}
+                 {{ breadcrumb.background_image.url }}
+             {% elif faculty.image %}
+                 {{ faculty.image.url }}
+             {% else %}
+                 {% static 'assets/images/banner/breadcrumb-2.jpg' %}
+             {% endif %}
+         );">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="breadcrumb-content">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Bosh sahifa</a></li>
-                        <li class="breadcrumb-item"><a href="{% url 'faculties:faculty_list' %}">Fakultetlar</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ faculty.name }}</li>
+                        <li class="breadcrumb-item">
+                            <a href="{% if breadcrumb %}{{ breadcrumb.parent_link }}{% else %}/{% endif %}">
+                                {% if breadcrumb %}
+                                    {{ breadcrumb.parent_title }}
+                                {% else %}
+                                    Bosh sahifa
+                                {% endif %}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'faculties:faculty_list' %}">
+                                {% if breadcrumb %}
+                                    {{ breadcrumb.title }}
+                                {% else %}
+                                    Fakultetlar
+                                {% endif %}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {{ faculty.name }}
+                        </li>
                     </ul>
                     <h2 class="section-title">{{ faculty.name }}</h2>
                 </div>
@@ -23,21 +50,34 @@
 <!-- content -->
 <div class="rts-faculty-details rts__pt100">
     <div class="container">
+
         <!-- Dekan xabari -->
         {% if faculty.dean_message %}
         <div class="row">
             <div class="rts-section mb--60">
-                <h3 class="rts-section-title">{{ faculty.dean_message_title|default:"Dekan xabari" }}</h3>
+                <h3 class="rts-section-title">
+                    {% if faculty.dean_message_title %}
+                        {{ faculty.dean_message_title }}
+                    {% elif breadcrumb and breadcrumb.dean_message_label %}
+                        {{ breadcrumb.dean_message_label }}
+                    {% else %}
+                        Dekan xabari
+                    {% endif %}
+                </h3>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-8">
                 <div class="faculty-image text-center">
                     {% if faculty.dean_photo %}
-                        <img class="img-fluid mw-100" src="{{ faculty.dean_photo.url }}" alt="{{ faculty.dean_full_name }}">
+                        <img class="img-fluid mw-100"
+                             src="{{ faculty.dean_photo.url }}"
+                             alt="{{ faculty.dean_full_name }}">
                     {% endif %}
                     <div class="h5 mb-2 mt-5">{{ faculty.dean_full_name }}</div>
-                    <span>{{ faculty.dean_degree }}</span>
+                    {% if faculty.dean_degree %}
+                        <span>{{ faculty.dean_degree }}</span>
+                    {% endif %}
                 </div>
             </div>
             <div class="col-lg-8">
@@ -51,15 +91,28 @@
 
         <!-- Missiya va Viziya -->
         {% if faculty.mission or faculty.vision %}
-        <div class="row align-items-center justify-content-md-center">
+        <div class="row align-items-center justify-content-md-center rts-section-padding">
             <div class="col-lg-6 col-md-11">
                 <div class="faculty-content-text me-5">
                     {% if faculty.mission %}
-                    <h4 class="font-32 mb-4">Missiya</h4>
+                    <h4 class="font-32 mb-4">
+                        {% if breadcrumb and breadcrumb.mission_label %}
+                            {{ breadcrumb.mission_label }}
+                        {% else %}
+                            Missiya
+                        {% endif %}
+                    </h4>
                     <p>{{ faculty.mission }}</p>
                     {% endif %}
+
                     {% if faculty.vision %}
-                    <h4 class="font-32 mb-4 mt-5">Viziya</h4>
+                    <h4 class="font-32 mb-4 mt-5">
+                        {% if breadcrumb and breadcrumb.vision_label %}
+                            {{ breadcrumb.vision_label }}
+                        {% else %}
+                            Viziya
+                        {% endif %}
+                    </h4>
                     <p>{{ faculty.vision }}</p>
                     {% endif %}
                 </div>
@@ -67,7 +120,9 @@
             <div class="col-lg-6 col-md-11">
                 {% if faculty.mission_image %}
                 <figure class="mt-5 mt-lg-0">
-                    <img class="mw-100" src="{{ faculty.mission_image.url }}" alt="{{ faculty.name }}">
+                    <img class="mw-100"
+                         src="{{ faculty.mission_image.url }}"
+                         alt="{{ faculty.name }}">
                 </figure>
                 {% endif %}
             </div>
@@ -78,7 +133,13 @@
         {% if departments %}
         <div class="row g-5 faculty-sub-details rts-section-padding">
             <div class="rts-section mb-4 text-center">
-                <h3 class="rts-section-title">Kafedralar ro'yxati</h3>
+                <h3 class="rts-section-title">
+                    {% if breadcrumb and breadcrumb.departments_label %}
+                        {{ breadcrumb.departments_label }}
+                    {% else %}
+                        Kafedralar ro'yxati
+                    {% endif %}
+                </h3>
             </div>
             {% for dept in departments %}
             <div class="col-lg-3 col-md-4 col-sm-6">
@@ -90,10 +151,15 @@
                     </div>
                     <div class="cat-meta">
                         <div class="cat-title">
-                            <a href="{% url 'faculties:department_detail' dept.slug %}">{{ dept.name }}</a>
+                            <a href="{% url 'faculties:department_detail' dept.slug %}">
+                                {{ dept.name }}
+                            </a>
                         </div>
                         <div class="cat-link">
-                            <a href="{% url 'faculties:department_detail' dept.slug %}" class="cat-link-arrow"><i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                            <a href="{% url 'faculties:department_detail' dept.slug %}"
+                               class="cat-link-arrow">
+                                <i class="fa-sharp fa-regular fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -101,6 +167,7 @@
             {% endfor %}
         </div>
         {% endif %}
+
     </div>
 </div>
 {% endblock %}

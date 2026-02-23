@@ -2,7 +2,7 @@ from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin, TranslationTabularInline
 
 from .models import (Faculty, Department, Staff, Division,
-                     EducationLevel, Program, ProgramVariant, FacultyBreadcrumb, DivisionBreadcrumb)
+                     EducationLevel, Program, ProgramVariant, FacultyBreadcrumb, DivisionBreadcrumb, DepartmentBreadcrumb)
 
 
 # Inlines
@@ -252,5 +252,44 @@ class DivisionBreadcrumbAdmin(TranslationAdmin):
 
     def has_add_permission(self, request):
         if DivisionBreadcrumb.objects.exists():
+            return False
+        return True
+
+
+@admin.register(DepartmentBreadcrumb)
+class DepartmentBreadcrumbAdmin(TranslationAdmin):
+    list_display = ['title', 'is_active']
+    list_editable = ['is_active']
+
+    fieldsets = (
+        ('Asosiy ma\'lumotlar', {
+            'fields': ('title', 'subtitle', 'parent_title', 'parent_link', 'background_image')
+        }),
+        ('Tab nomlari', {
+            'fields': (
+                'tab_about_label', 'tab_team_label',
+                'tab_science_label', 'tab_international_label',
+            )
+        }),
+        ('Kafedra mudiri', {
+            'fields': (
+                'head_title_label', 'head_position_label',
+                'degree_label', 'rank_label', 'reception_label',
+                'address_label', 'phone_label', 'email_label',
+            )
+        }),
+        ('Boshqa sarlavhalar', {
+            'fields': (
+                'history_label', 'about_head_label', 'team_label',
+                'science_label', 'international_label', 'empty_label',
+            )
+        }),
+        ('Boshqa', {
+            'fields': ('is_active',)
+        }),
+    )
+
+    def has_add_permission(self, request):
+        if DepartmentBreadcrumb.objects.exists():
             return False
         return True
