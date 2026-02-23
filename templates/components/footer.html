@@ -8,9 +8,9 @@
                 <div class="rts-footer-widget w-320">
                     <a href="{% url 'home:home' %}" class="d-block rts-footer-logo mb--40">
                         {% if site_settings and site_settings.logo_white %}
-                            <img src="{{ site_settings.logo_white.url }}" alt="{{ site_settings.site_name }}">
+                            <img src="{{ site_settings.logo_white.url }}" alt="{{ site_settings.site_name }}" style="width: 180px;">
                         {% else %}
-                            <img src="{% static 'assets/images/logo/logo__white.svg' %}" alt="XIU">
+                            <img src="{% static 'assets/images/logo/logo__white.svg' %}" alt="XIU" style="width: 180px;">
                         {% endif %}
                     </a>
 
