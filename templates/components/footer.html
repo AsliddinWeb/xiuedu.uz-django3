@@ -62,32 +62,25 @@
             <div class="col-lg-4 col-md-6 col-sm-8">
                 <div class="rts-footer-widget ml--30">
                     <h6 class="rt-semi">
-                        {% if footer_settings.recent_news_title %}
-                            {{ footer_settings.recent_news_title }}
-                        {% else %}
-                            So'nggi yangiliklar
-                        {% endif %}
+                        {{ footer_settings.recent_news_title|default:"So'nggi yangiliklar" }}
                     </h6>
                     <div class="rts-post-widget">
                         <ul class="list-unstyled">
+                            {% for news in recent_news %}
                             <li class="single-post">
-                                <a href="#" class="blog-thumb">
-                                    <img src="{% static 'assets/images/blog/w-1.jpg' %}" alt="yangilik">
+                                <a href="{{ news.get_absolute_url }}" class="blog-thumb">
+                                    {% if news.image %}
+                                        <img src="{{ news.image.url }}" alt="{{ news.title }}">
+                                    {% else %}
+                                        <img src="{% static 'assets/images/blog/w-1.jpg' %}" alt="{{ news.title }}">
+                                    {% endif %}
                                 </a>
                                 <div class="post-content">
-                                    <span class="rt-date">{{ "now"|date:"d F, Y" }}</span>
-                                    <a href="#">Yangilik sarlavhasi</a>
+                                    <span class="rt-date">{{ news.created_at|date:"d F, Y" }}</span>
+                                    <a href="{{ news.get_absolute_url }}">{{ news.title|truncatewords:8 }}</a>
                                 </div>
                             </li>
-                            <li class="single-post">
-                                <a href="#" class="blog-thumb">
-                                    <img src="{% static 'assets/images/blog/small-thumb-1.jpg' %}" alt="yangilik">
-                                </a>
-                                <div class="post-content">
-                                    <span class="rt-date">{{ "now"|date:"d F, Y" }}</span>
-                                    <a href="#">Yangilik sarlavhasi</a>
-                                </div>
-                            </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>

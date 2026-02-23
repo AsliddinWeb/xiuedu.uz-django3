@@ -3,6 +3,8 @@ from .models import (
     FooterSettings, FooterCategoryMenu
 )
 
+from apps.news.models import News
+
 
 def site_settings(request):
     """Sayt sozlamalarini barcha sahifalarga yuklash"""
@@ -21,6 +23,10 @@ def site_settings(request):
         is_active=True
     ).prefetch_related('menu_items').order_by('order')
 
+    # Yangiliklar soni footer_settings dan olinadi
+    news_count = footer_settings.recent_news_count if footer_settings else 2
+    recent_news = News.objects.filter(is_active=True).order_by('-created_at')[:news_count]
+
     # Ijtimoiy tarmoqlar
     social_networks = SocialNetwork.objects.filter(is_active=True).order_by('order')
 
@@ -31,4 +37,6 @@ def site_settings(request):
         'header_menus': header_menus,
         'footer_categories': footer_categories,
         'social_networks': social_networks,
+
+        'recent_news': recent_news,
     }
