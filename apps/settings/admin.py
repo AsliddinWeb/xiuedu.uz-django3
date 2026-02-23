@@ -105,21 +105,21 @@ class HeaderMenuAdmin(TranslationAdmin):
 
 @admin.register(FooterSettings)
 class FooterSettingsAdmin(TranslationAdmin):
-    list_display = ['show_newsletter', 'show_recent_news', 'show_copyright', 'is_active']
-    list_filter = ['is_active', 'show_newsletter', 'show_recent_news']
+    list_display = ['show_recent_news', 'show_copyright', 'is_active']
+    list_filter = ['is_active', 'show_recent_news']
 
     fieldsets = (
         ('Haqida', {
             'fields': ('about_title', 'about_text')
         }),
-        ('Newsletter', {
-            'fields': ('show_newsletter', 'newsletter_title', 'newsletter_description')
-        }),
         ('Yangiliklar', {
-            'fields': ('show_recent_news', 'recent_news_count')
+            'fields': ('show_recent_news', 'recent_news_title', 'recent_news_count')
+        }),
+        ('Copyright', {
+            'fields': ('show_copyright', 'copyright_label')
         }),
         ('Boshqa', {
-            'fields': ('show_copyright', 'show_payment_icons', 'is_active')
+            'fields': ('is_active',)
         }),
     )
 

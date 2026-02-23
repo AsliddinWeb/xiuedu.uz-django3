@@ -180,23 +180,18 @@ class HeaderMenu(BaseModel):
 
 
 class FooterSettings(BaseModel):
-    """Footer sozlamalari"""
     # Footer haqida
     about_title = models.CharField(max_length=255, blank=True, verbose_name="Haqida sarlavhasi")
     about_text = models.TextField(blank=True, verbose_name="Haqida matni")
 
-    # Newsletter
-    show_newsletter = models.BooleanField(default=True, verbose_name="Newsletter ko'rsatish")
-    newsletter_title = models.CharField(max_length=255, blank=True, verbose_name="Newsletter sarlavhasi")
-    newsletter_description = models.TextField(blank=True, verbose_name="Newsletter tavsifi")
-
     # So'nggi yangiliklar
     show_recent_news = models.BooleanField(default=True, verbose_name="So'nggi yangiliklar ko'rsatish")
+    recent_news_title = models.CharField(max_length=100, default="So'nggi yangiliklar", verbose_name="Yangiliklar sarlavhasi")
     recent_news_count = models.PositiveIntegerField(default=2, verbose_name="So'nggi yangiliklar soni")
 
-    # Footer pastki qism
+    # Copyright
     show_copyright = models.BooleanField(default=True, verbose_name="Copyright ko'rsatish")
-    show_payment_icons = models.BooleanField(default=False, verbose_name="To'lov tizimlarini ko'rsatish")
+    copyright_label = models.CharField(max_length=200, default="Barcha huquqlar himoyalangan", verbose_name="Copyright matni")
 
     is_active = models.BooleanField(default=True, verbose_name="Faolmi?")
 

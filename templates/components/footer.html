@@ -1,35 +1,8 @@
 {% load static %}
-{% load i18n %}
 <footer class="rts-footer rts-footer-padding v_2">
     <div class="container">
-        {% if footer_settings and footer_settings.show_newsletter %}
-        <div class="row justify-content-center">
-            <div class="rts-footer-newsletter">
-                <div class="col-lg-10">
-                    <div class="rts-newsletter-box-content">
-                        <h4 class="newsletter-title">
-                            {{ footer_settings.newsletter_title|default:"Yangiliklar uchun obuna bo'ling" }}
-                        </h4>
-                        {% if footer_settings.newsletter_description %}
-                            <p class="newsletter-description">{{ footer_settings.newsletter_description }}</p>
-                        {% endif %}
-                        <div class="newsletter-form w-530">
-                            <form action="#" method="post">
-                                {% csrf_token %}
-                                <input type="email" name="email" id="email" placeholder="{% trans 'Email manzilingizni kiriting' %}" required>
-                                <button type="submit" class="rts-nbg-btn btn-arrow">
-                                    {% trans "Obuna bo'lish" %}
-                                    <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-
         <div class="row gy-5 gy-lg-0">
+
             {# About Column #}
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="rts-footer-widget w-320">
@@ -45,8 +18,6 @@
                         <p>{{ footer_settings.about_text }}</p>
                     {% elif site_settings and site_settings.site_description %}
                         <p>{{ site_settings.site_description|truncatewords:30 }}</p>
-                    {% else %}
-                        <p>{% trans "Xalqaro Innovatsion Universitet - zamonaviy ta'lim va ilm-fan markazi. Biz sifatli ta'lim va professional kadrlar tayyorlashga intilamiz." %}</p>
                     {% endif %}
 
                     {% if site_settings %}
@@ -90,26 +61,31 @@
             {% if footer_settings and footer_settings.show_recent_news %}
             <div class="col-lg-4 col-md-6 col-sm-8">
                 <div class="rts-footer-widget ml--30">
-                    <h6 class="rt-semi">{% trans "So'nggi yangiliklar" %}</h6>
+                    <h6 class="rt-semi">
+                        {% if footer_settings.recent_news_title %}
+                            {{ footer_settings.recent_news_title }}
+                        {% else %}
+                            So'nggi yangiliklar
+                        {% endif %}
+                    </h6>
                     <div class="rts-post-widget">
                         <ul class="list-unstyled">
-                            {# Bu qismni keyinchalik news app bilan to'ldiramiz #}
                             <li class="single-post">
                                 <a href="#" class="blog-thumb">
-                                    <img src="{% static 'assets/images/blog/w-1.jpg' %}" alt="{% trans 'yangilik' %}">
+                                    <img src="{% static 'assets/images/blog/w-1.jpg' %}" alt="yangilik">
                                 </a>
                                 <div class="post-content">
                                     <span class="rt-date">{{ "now"|date:"d F, Y" }}</span>
-                                    <a href="#">{% trans "Yangilik sarlavhasi" %}</a>
+                                    <a href="#">Yangilik sarlavhasi</a>
                                 </div>
                             </li>
                             <li class="single-post">
                                 <a href="#" class="blog-thumb">
-                                    <img src="{% static 'assets/images/blog/small-thumb-1.jpg' %}" alt="{% trans 'yangilik' %}">
+                                    <img src="{% static 'assets/images/blog/small-thumb-1.jpg' %}" alt="yangilik">
                                 </a>
                                 <div class="post-content">
                                     <span class="rt-date">{{ "now"|date:"d F, Y" }}</span>
-                                    <a href="#">{% trans "Yangilik sarlavhasi" %}</a>
+                                    <a href="#">Yangilik sarlavhasi</a>
                                 </div>
                             </li>
                         </ul>
@@ -117,11 +93,12 @@
                 </div>
             </div>
             {% endif %}
+
         </div>
     </div>
 </footer>
 
-{# Copyright Section #}
+{# Copyright #}
 {% if footer_settings and footer_settings.show_copyright %}
 <div class="rts-footer-copy-right v_1">
     <div class="container">
@@ -131,7 +108,10 @@
                     {% if site_settings and site_settings.copyright_text %}
                         {{ site_settings.copyright_text }}
                     {% else %}
-                        Copyright &copy; <span id="year">{{ "now"|date:"Y" }}</span> {% trans "Barcha huquqlar himoyalangan" %}
+                        Copyright &copy; <span id="year">{{ "now"|date:"Y" }}</span>
+                        {% if footer_settings.copyright_label %}
+                            {{ footer_settings.copyright_label }}
+                        {% endif %}
                         {% if site_settings %}
                             <a href="{% url 'home:home' %}">{{ site_settings.site_name }}</a>
                         {% endif %}

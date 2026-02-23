@@ -23,7 +23,11 @@ class HeaderMenuTranslationOptions(TranslationOptions):
 
 @register(FooterSettings)
 class FooterSettingsTranslationOptions(TranslationOptions):
-    fields = ('about_title', 'about_text', 'newsletter_title', 'newsletter_description')
+    fields = (
+        'about_title', 'about_text',
+        'recent_news_title',
+        'copyright_label',
+    )
 
 
 @register(FooterCategoryMenu)
